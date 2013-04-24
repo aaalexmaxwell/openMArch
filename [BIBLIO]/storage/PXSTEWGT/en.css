@@ -1,0 +1,229 @@
+
+/* ::::: http://eipcp.net/transversal/1106/lazzarato/en/eipcp.css ::::: */
+
+.menuicon { position: absolute; left: 562px; top: 0px; width: 130px; height: 33px; padding: 2px; color: rgb(255, 255, 255); font-weight: bold; text-align: right; background: none repeat scroll 0% 0% rgb(51, 85, 102); visibility: hidden; }
+.menuicon.i1 { visibility: hidden; }
+.menuicon.i2 { visibility: hidden; }
+.menuicon.i3 { visibility: hidden; }
+.menuicon.i4 { visibility: hidden; }
+.menuicon.i5 { visibility: hidden; }
+.menuicon.i6 { visibility: hidden; }
+body { margin: 1px 0pt 0pt 2px; padding: 0pt; background-color: rgb(51, 85, 102); font-family: Arial,Helvetica,sans-serif; font-size: 11px; line-height: 15px; color: rgb(51, 51, 51); }
+img { border: medium none; }
+img:hover { border: medium none; }
+a.img { border: medium none; }
+a.img:hover { border: medium none; }
+h1 { margin: 0pt; padding: 0pt; font-size: 15px; line-height: 17px; }
+h2 { margin: 0pt; padding: 0pt; font-size: 15px; line-height: 17px; }
+hr { border: 0pt none; height: 1px; background: none repeat scroll 0% 0% rgb(221, 221, 221); margin: 10px 0px; }
+.bigtxt { font-size: 15px; font-weight: bold; }
+.mediumtxt { font-size: 12px; font-weight: bold; }
+a { color: rgb(51, 85, 102); font-weight: bold; text-decoration: none; border-bottom: 1px solid rgb(204, 204, 204); }
+a:hover { color: rgb(255, 255, 255); font-weight: bold; text-decoration: none; border-bottom: 1px solid rgb(238, 238, 238); background: none repeat scroll 0% 0% rgb(51, 85, 102); }
+#navibar { margin-bottom: 2px; background-color: rgb(255, 255, 255); padding: 2px 0pt 0pt 2px; width: 100%; height: 18px; color: rgb(204, 204, 204); font-size: 11px; }
+#navibar a { color: rgb(204, 204, 204); font-size: 11px; border-bottom: 1px solid rgb(102, 102, 102); }
+#navibar { margin-bottom: 2px; background-color: rgb(255, 255, 255); border-bottom: 1px solid rgb(51, 51, 51); width: 100%; height: 18px; color: rgb(204, 204, 204); font-size: 11px; padding: 2px 0pt 0pt 4px; font-weight: bold; }
+#navibar a { color: rgb(204, 204, 204); font-size: 11px; border-bottom: 1px solid rgb(221, 221, 221); }
+#navibar a:hover { color: rgb(51, 85, 102); border-color: rgb(51, 85, 102); }
+#contentnavibar { margin-bottom: 2px; width: 794px; height: 18px; padding: 2px 0pt 0pt 4px; color: rgb(51, 85, 102); background-color: rgb(55, 185, 223); }
+#contentnavibar a { color: rgb(51, 85, 102); border-bottom: 1px solid rgb(21, 151, 189); }
+#contentnavibar a:hover { color: rgb(255, 255, 255); border-color: rgb(51, 85, 102); background-color: rgb(51, 85, 102); }
+#contentnavibar img { margin: 0pt 4px; }
+#header { width: 798px; height: 85px; }
+#header a { border: medium none; }
+#header_toplogo { float: left; width: 128px; margin-right: 2px; }
+#header_title { float: left; width: 400px; height: 85px; background-color: rgb(55, 185, 223); }
+#header_titlepadding { padding: 10px 0pt 0pt 10px; }
+#header_title h1 { font-size: 19px; padding-bottom: 5px; }
+#header_right { float: left; width: 268px; height: 85px; background-color: rgb(55, 185, 223); text-align: right; }
+#header_right img { margin-bottom: 2px; }
+#header_right img:hover { border-top: 2px solid rgb(51, 85, 102); margin-bottom: 0px; }
+#menu { width: 798px; height: 28px; }
+#menu a { border: medium none; display: block; float: right; }
+#tvlist { width: 798px; padding-bottom: 4px; padding-top: 2px; background-color: rgb(255, 255, 255); }
+#tvlist a:hover { background: none repeat scroll 0% 0% transparent; border-color: rgb(17, 153, 187); }
+.tvlistrow { height: 80px; }
+.tvlistbox { float: left; display: inline; width: 175px; height: 56px; margin: 0pt 0pt 2px 2px; padding: 10px 11px; text-align: right; background: url('box_tv_bg.png') no-repeat scroll 0% 0% rgb(55, 185, 223); border-bottom: 2px solid rgb(45, 149, 181); }
+.tvlistbox { line-height: 13px; overflow: hidden; }
+.tvlistbox h2 { font-size: 14px; line-height: 17px; padding-bottom: 2px; }
+.tvlistbox a { border-bottom: 1px solid rgb(17, 153, 187); }
+a.tvlistboxcat { color: rgb(55, 185, 223); font-size: 12px; font-weight: bold; border: medium none; }
+span.tvlistboxcat { color: rgb(55, 185, 223); font-size: 12px; font-weight: bold; border: medium none; }
+.tvlistbox.hover { cursor: pointer; background: url('box_hover_bg.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.tvlistbox.hover a { color: rgb(255, 255, 255); }
+.tvlistbox.hovertransf { cursor: pointer; background: url('box_tv_bg_transf.png') repeat scroll 0% 0% transparent; border-color: rgb(221, 136, 0); color: rgb(204, 18, 0); }
+.tvlistbox.hovertransf a { color: rgb(204, 18, 0); border-color: rgb(221, 136, 0); }
+#tvlist .tvlistbox.hovertransf a:hover { border-color: rgb(221, 136, 0); }
+.tvlistbox.hovertransl { cursor: pointer; background: url('box_tv_bg_transl.png') repeat scroll 0% 0% transparent; border-color: rgb(204, 0, 51); color: rgb(255, 255, 255); }
+.tvlistbox.hovertransl a { color: rgb(255, 255, 255); border-color: rgb(204, 0, 51); }
+#tvlist .tvlistbox.hovertransl a:hover { border-color: rgb(204, 0, 51); }
+.tvlistbox.hoverrepublicart { cursor: pointer; background: url('box_tv_bg_republicart.png') repeat scroll 0% 0% transparent; border-color: rgb(221, 51, 0); color: rgb(255, 255, 255); }
+.tvlistbox.hoverrepublicart a { color: rgb(255, 255, 255); border-color: rgb(255, 204, 153); }
+#tvlist .tvlistbox.hoverrepublicart a:hover { border-color: rgb(255, 204, 153); }
+.tvlistbox.hovercreatingworlds { cursor: pointer; background: url('box_pr_bg.png') repeat scroll 0% 0% transparent; border-color: rgb(238, 238, 0); color: rgb(94, 94, 0); }
+.tvlistbox.hovercreatingworlds a { color: rgb(94, 94, 0); border-color: rgb(255, 204, 153); }
+#tvlist .tvlistbox.hovercreatingworlds a:hover { border-color: rgb(255, 204, 153); }
+.tvlistbox.cat { background: url('box_tv_title_bg.png') repeat scroll 0% 0% rgb(55, 185, 223); }
+.tvlistbox.cat.hover { cursor: pointer; background: url('box_tv_title_bg_hover.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.tvlistbox.cat.hover a { color: rgb(255, 255, 255); }
+#tvlist .tvlistbox.hovercat a:hover { border-color: rgb(34, 68, 85); }
+.iconTVtransf { background: none repeat scroll 0% 0% rgb(255, 187, 51); padding-bottom: 2px; padding-left: 2px; float: right; margin-right: 30px; }
+.iconTVtransl { background: none repeat scroll 0% 0% rgb(255, 36, 78); padding-bottom: 2px; padding-left: 2px; float: right; margin-right: 30px; }
+.iconTVrepublicart { float: right; margin-right: 30px; }
+.vlogo_transf { float: right; background: none repeat scroll 0% 0% rgb(255, 187, 51); margin-bottom: 16px; margin-left: 5px; }
+.vlogo_transl { float: right; background: none repeat scroll 0% 0% rgb(255, 36, 78); margin-bottom: 16px; margin-left: 5px; }
+.vlogo_republicart { float: right; margin-bottom: 16px; margin-left: 5px; }
+.vlogo_eipcpsite { float: right; margin-bottom: 16px; margin-left: 5px; }
+#pllist { width: 798px; padding-bottom: 2px; padding-top: 2px; background-color: rgb(255, 255, 255); }
+#pllist a:hover { background: none repeat scroll 0% 0% transparent; border-color: rgb(153, 221, 51); }
+.pllistbox { float: left; display: inline; height: 56px; margin: 0pt 0pt 2px 2px; padding: 10px 11px; text-align: right; background: none repeat scroll 0% 0% rgb(185, 255, 81); border-bottom: 2px solid rgb(136, 204, 34); }
+.pllistbox { line-height: 13px; overflow: hidden; }
+.pllistbox h2 { font-size: 14px; line-height: 17px; padding-bottom: 2px; }
+.pllistbox h3 { font-size: 12px; line-height: 15px; padding-bottom: 2px; margin: 0pt; }
+.pllistbox a { border-bottom: 1px solid rgb(153, 221, 51); }
+.pllistboxcat { color: rgb(136, 204, 34); font-size: 12px; font-weight: bold; border: medium none; }
+.pllistbox.a1 { width: 175px; background: url('box_pl_bg.png') no-repeat scroll 0% 0% rgb(185, 255, 81); }
+.pllistbox.a1.hover { cursor: pointer; background: url('box_hover_bg.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.pllistbox.a1.hover a { color: rgb(255, 255, 255); }
+.pllistbox.a2 { width: 374px; background: url('box_pl_bg2.png') no-repeat scroll 0% 0% rgb(185, 255, 81); }
+.pllistbox.a2.hover { cursor: pointer; background: url('box_hover_bg2.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.pllistbox.a2.hover a { color: rgb(255, 255, 255); }
+.pllistbox.a3 { width: 573px; background: url('box_pl_bg3.png') no-repeat scroll 0% 0% rgb(185, 255, 81); }
+.pllistbox.a3.hover { cursor: pointer; background: url('box_hover_bg3.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.pllistbox.a3.hover a { color: rgb(255, 255, 255); }
+.pllistbox.a4 { width: 772px; background: url('box_pl_bg4.png') no-repeat scroll 0% 0% rgb(185, 255, 81); }
+.pllistbox.a4.hover { cursor: pointer; background: url('box_hover_bg4.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.pllistbox.a4.hover a { color: rgb(255, 255, 255); }
+#prlist { width: 798px; padding-bottom: 2px; padding-top: 2px; background-color: rgb(255, 255, 255); }
+#prlist a:hover { background: none repeat scroll 0% 0% transparent; border-color: rgb(221, 221, 51); }
+.prlistbox, .prlistboxongoing { float: left; display: inline; height: 56px; margin: 0pt 0pt 2px 2px; padding: 10px 11px; text-align: right; background: none repeat scroll 0% 0% rgb(255, 255, 100); border-bottom: 2px solid rgb(238, 238, 0); line-height: 13px; overflow: hidden; }
+.prlistbox h2, .prlistboxongoing h2 { font-size: 14px; line-height: 17px; padding-bottom: 2px; }
+.prlistbox a, .prlistboxongoing a { border-bottom: 1px solid rgb(221, 221, 51); }
+.prlistboxcat { color: rgb(136, 204, 34); font-size: 12px; font-weight: bold; border: medium none; }
+.prlistbox.b1 { width: 175px; background: url('box_pr_bg.png') no-repeat scroll 0% 0% rgb(255, 255, 100); }
+.prlistbox.b2 { width: 374px; background: url('box_pr_bg2.png') no-repeat scroll 0% 0% rgb(255, 255, 100); }
+.prlistbox.b3 { width: 573px; background: url('box_pr_bg3.png') no-repeat scroll 0% 0% rgb(255, 255, 100); }
+.prlistbox.b4 { width: 772px; background: url('box_pr_bg4.png') no-repeat scroll 0% 0% rgb(255, 255, 100); }
+.prlistboxongoing.b4 { width: 764px; padding-left: 18px; background: url('box_pr_bg4_ongoing.png') no-repeat scroll 0% 0% rgb(255, 255, 100); }
+.prlistbox.b1.hover { cursor: pointer; background: url('box_hover_bg.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.prlistbox.b1.hover a { color: rgb(255, 255, 255); }
+.prlistbox.b2.hover { cursor: pointer; background: url('box_hover_bg2.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.prlistbox.b2.hover a { color: rgb(255, 255, 255); }
+.prlistbox.b3.hover { cursor: pointer; background: url('box_hover_bg3.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.prlistbox.b3.hover a { color: rgb(255, 255, 255); }
+.prlistbox.b4.hover { cursor: pointer; background: url('box_hover_bg4.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.prlistboxongoing.b4.hover { cursor: pointer; background: url('box_hover_pr_bg4_ongoing.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.prlistbox.b4.hover a, .prlistboxongoing.b4.hover a { color: rgb(255, 255, 255); }
+#pulist { width: 798px; padding-bottom: 2px; padding-top: 2px; background-color: rgb(255, 255, 255); }
+#pulist a:hover { background: none repeat scroll 0% 0% transparent; border-color: rgb(238, 187, 68); }
+.pulistbox { float: left; display: inline; height: 56px; margin: 0pt 0pt 2px 2px; padding: 10px 11px; text-align: right; background: none repeat scroll 0% 0% rgb(255, 255, 100); border-bottom: 2px solid rgb(221, 170, 51); }
+.pulistbox { line-height: 13px; overflow: hidden; }
+.pulistbox h2 { font-size: 14px; line-height: 17px; padding-bottom: 2px; }
+.pulistbox a { border-bottom: 1px solid rgb(238, 187, 68); }
+.pulistboxcat { color: rgb(136, 204, 34); font-size: 12px; font-weight: bold; border: medium none; }
+.pulistbox.d1 { width: 175px; background: url('box_pu_bg.png') no-repeat scroll 0% 0% rgb(255, 204, 102); }
+.pulistbox.d2 { width: 374px; background: url('box_pu_bg2.png') no-repeat scroll 0% 0% rgb(255, 204, 102); }
+.pulistbox.d3 { width: 573px; background: url('box_pu_bg3.png') no-repeat scroll 0% 0% rgb(255, 204, 102); }
+.pulistbox.d4 { width: 772px; background: url('box_pu_bg4.png') no-repeat scroll 0% 0% rgb(255, 204, 102); }
+.pulistbox.d1.hover { cursor: pointer; background: url('box_hover_bg.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.pulistbox.d1.hover a { color: rgb(255, 255, 255); }
+.pulistbox.d2.hover { cursor: pointer; background: url('box_hover_bg2.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.pulistbox.d2.hover a { color: rgb(255, 255, 255); }
+.pulistbox.d3.hover { cursor: pointer; background: url('box_hover_bg3.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.pulistbox.d3.hover a { color: rgb(255, 255, 255); }
+.pulistbox.d4.hover { cursor: pointer; background: url('box_hover_bg4.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.pulistbox.d4.hover a { color: rgb(255, 255, 255); }
+.pulistboxsubtitle { font-weight: bold; }
+#ablist { width: 798px; padding-bottom: 2px; padding-top: 2px; background-color: rgb(255, 255, 255); }
+.ablistbox { float: left; display: inline; height: 56px; margin: 0pt 0pt 2px 2px; padding: 10px 11px; text-align: right; background: none repeat scroll 0% 0% rgb(225, 225, 225); border-bottom: 2px solid rgb(204, 204, 204); }
+.ablistbox { line-height: 13px; overflow: hidden; }
+.ablistbox h2 { font-size: 14px; line-height: 17px; padding-bottom: 2px; }
+.ablistbox a { border-bottom: 1px solid rgb(204, 204, 204); }
+.ablistbox a:hover { background: none repeat scroll 0% 0% transparent; border-color: rgb(204, 204, 204); }
+.ablistboxcat { color: rgb(136, 204, 34); font-size: 12px; font-weight: bold; border: medium none; }
+.ablistbox.c1 { width: 175px; background: url('box_ab_bg.png') no-repeat scroll 0% 0% rgb(225, 225, 225); }
+.ablistbox.c2 { width: 374px; background: url('box_ab_bg2.png') no-repeat scroll 0% 0% rgb(225, 225, 225); }
+.ablistbox.c3 { width: 573px; background: url('box_ab_bg3.png') no-repeat scroll 0% 0% rgb(225, 225, 225); }
+.ablistbox.c4 { width: 772px; background: url('box_ab_bg4.png') no-repeat scroll 0% 0% rgb(225, 225, 225); }
+.ablistbox.c1.hover { cursor: pointer; background: url('box_hover_bg.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.ablistbox.c1.hover a { color: rgb(255, 255, 255); }
+.ablistbox.c2.hover { cursor: pointer; background: url('box_hover_bg2.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.ablistbox.c2.hover a { color: rgb(255, 255, 255); }
+.ablistbox.c3.hover { cursor: pointer; background: url('box_hover_bg3.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.ablistbox.c3.hover a { color: rgb(255, 255, 255); }
+.ablistbox.c4.hover { cursor: pointer; background: url('box_hover_bg4.png') repeat scroll 0% 0% transparent; border-color: rgb(34, 68, 85); color: rgb(255, 255, 255); }
+.ablistbox.c4.hover a { color: rgb(255, 255, 255); }
+.abtxtdiv { width: 536px; padding: 30px; }
+#abtxtWrap { float: right; }
+.abtxtTable { table-layout: fixed; border-collapse: collapse; border-spacing: 0px; font-size: 11px; width: 596px; background-color: rgb(255, 255, 255); margin: 0pt 0pt 10px; }
+.abtxtTable td { vertical-align: top; padding: 0px 10px 0px 15px; margin: 0px; }
+.abtxtTable td.border { border-left: 1px dotted rgb(204, 204, 204); }
+.abtxtTable p { margin: 0px 0px 15px; }
+#newsletterbox { margin-top: 20px; width: 137px; height: 42px; padding-top: 10px; padding-left: 60px; background: url('newsletter_box_bg.gif') no-repeat scroll 0% 0% transparent; }
+#newsletterbox h2 { font-size: 11px; line-height: 15px; padding-bottom: 0px; color: rgb(185, 196, 202); }
+#newsletterbox a { border-bottom: 1px solid rgb(255, 255, 255) ! important; color: rgb(255, 255, 255); font-weight: normal; }
+#newsletterbox a:hover { background-color: rgb(255, 255, 255); color: rgb(51, 85, 102); }
+.FrontPageContents .headline1, .FrontPageContents .headline1a { line-height: 16px; margin-bottom: 4px; }
+.FrontPageContents .headline2 { font-style: italic; line-height: 16px; margin-bottom: 4px; }
+.clistbox { width: 167px; margin-right: 2px; margin-bottom: 2px; padding: 10px; text-align: left; background: url('box_calendar_back.jpg') repeat-y scroll 0% 0% rgb(255, 255, 255); font-size: 11px; }
+.clistbox { line-height: 13px; }
+.clistbox h2 { font-size: 11px; line-height: 16px; padding-bottom: 5px; }
+.clistbox a { border-bottom: 1px solid rgb(51, 51, 51) ! important; }
+.clistboxcat { width: 167px; margin-right: 2px; margin-bottom: 2px; padding: 10px; text-align: left; line-height: 13px; background: url('box_calendar_back.jpg') repeat-y scroll 0% 0% transparent; }
+.clistboxcattitle { color: rgb(255, 45, 113); font-size: 12px; font-weight: bold; border: medium none; }
+.clistboxarchive { width: 167px; margin-right: 2px; margin-bottom: 2px; padding: 10px; text-align: left; line-height: 13px; background: url('box_calendar_archive_back.jpg') repeat-y scroll 0% 0% transparent; }
+.clistboxarchivetitle { color: rgb(255, 45, 113); font-size: 11px; font-weight: normal; border: medium none; }
+.policieslistbox { width: 175px; margin-left: 2px; margin-bottom: 2px; padding: 10px; text-align: right; background: url('box_policies_back.gif') repeat-y scroll 0% 0% rgb(255, 255, 255); font-size: 11px; }
+.policieslistbox { line-height: 13px; }
+.policieslistbox h2 { font-size: 11px; line-height: 16px; padding-bottom: 4px; }
+.policieslistbox a { border-bottom: 1px solid rgb(51, 51, 51); }
+.policieslistboxcat { width: 175px; margin-left: 2px; margin-bottom: 2px; padding: 10px; text-align: right; line-height: 13px; background: url('box_policies_back.gif') repeat-y scroll 0% 0% transparent; }
+a.policieslistboxcattitle { color: rgb(135, 225, 0); font-size: 12px; font-weight: bold; border: medium none; }
+.textrelatedbox { width: 167px; padding-right: 20px; text-align: right; }
+.textrelatedbox a {  }
+.textrelatedbox h1 { font-size: 11px; }
+.textrelatedbox p { margin: 0pt 0pt 1.5em; }
+.switchactive { border-bottom: 1px solid rgb(204, 204, 204); display: inline; }
+#contentheader { padding: 30px 20px 20px 197px; width: 581px; background-color: rgb(255, 255, 255); font-size: 12px; }
+#contentheader { padding: 30px 30px 10px 197px; width: 571px; background-color: rgb(255, 255, 255); font-size: 11px; }
+#contentheader h1 { font-size: 16px; }
+#contentcols { width: 798px; background-color: rgb(255, 255, 255); font-size: 12px; }
+#contentcol1 { vertical-align: top; width: 195px; padding: 21px 0px 0pt 2px; font-size: 11px; }
+#contentcol2 { vertical-align: top; width: 366px; padding: 30px 20px; font-size: 11px; }
+#contentcol3 { vertical-align: top; width: 195px; padding: 30px 10px; font-size: 11px; }
+.contentcol3homepage { padding-top: 21px ! important; }
+#contentcol3 p { margin: 0pt 0pt 1em; }
+#contentcol3 a { border: 0pt none; }
+#contentcol3 a:hover { border: 0pt none; }
+#contentcol2 hr { width: 350px; border: 0pt none; height: 1px; background: url('bg_hdots.png') repeat-x scroll 0% 0% rgb(204, 204, 204); margin: 15px 0px; }
+#contentcol23 { vertical-align: top; width: 571px; padding: 20px 30px 20px 0px; }
+#contentcol23 p { margin: 0pt 0pt 1.5em; line-height: 1.5em; }
+#footer { clear: both; width: 798px; background-color: rgb(255, 255, 255); color: rgb(153, 153, 153); text-align: center; padding-bottom: 3px; }
+#footer a { color: rgb(153, 153, 153); font-weight: normal; border: medium none; }
+#footer a:hover { color: rgb(51, 85, 102); border: medium none; background: none repeat scroll 0% 0% transparent; }
+.author { font-size: 12px; }
+.translator { float: right; }
+.genericleftmenu a { font-weight: normal; }
+
+/* ::::: http://eipcp.net/transversal/1106/lazzarato/en/eipcp_issue.css ::::: */
+
+.tvissuecols { border-collapse: collapse; table-layout: fixed; width: 100%; }
+.tvissuecols td { vertical-align: top; }
+.tvissuetextbox ul { margin: 0pt; padding: 5px 0pt 0pt 0px; list-style-type: none; }
+.tvissuetextbox li { background: url('link_arrow_002.png') no-repeat scroll 0px 3px transparent; padding: 0pt 0pt 0pt 8px; margin: 0pt 0pt 5px; }
+.tvissuetextbox { font-size: 11px; margin: 0pt 30px 15px 0pt; line-height: 15px; }
+.tvissueeditorial { float: left; }
+.tvissueimprint { float: right; }
+.tvissuetextbox h1 { font-size: 12px; background: none repeat scroll 0% 0% rgb(55, 185, 223); padding: 0pt 0pt 0pt 2px; }
+.tvissuetextbox a {  }
+.tvissuetextbox a:hover {  }
+.plissuecols { border-collapse: collapse; table-layout: fixed; width: 100%; }
+.plissuecols td { vertical-align: top; }
+.plissuetextbox ul { margin: 0pt; padding: 5px 0pt 0pt 0px; list-style-type: none; }
+.plissuetextbox li { background: url('link_arrow_002.png') no-repeat scroll 0px 3px transparent; padding: 0pt 0pt 0pt 8px; margin: 0pt 0pt 5px; }
+.plissuetextbox { font-size: 11px; margin: 0pt 30px 15px 0pt; line-height: 15px; }
+.plissueeditorial { float: left; }
+.plissueimprint { float: right; }
+.plissuetextbox h1 { font-size: 12px; background-color: rgb(55, 185, 223); padding: 0pt 0pt 0pt 2px; }
+.plissuetextbox a {  }
+.plissuetextbox a:hover {  }
