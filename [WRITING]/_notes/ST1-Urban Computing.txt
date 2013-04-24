@@ -1,0 +1,33 @@
+Architecture and Situated Technologies Pamphlet 1
+Urban Computing and Its Discontents
+Adam Greenfield and Mark Shepard
+
+stealthy spaces “cannot be found”
+slippery spaces “cannot be reached”
+crusty spaces “cannot be accessed”
+prickly spaces “cannot be occupied comfortably”
+jittery spaces “cannot be utilized unobserved”
+
+reactive-responsive
+synchronic-asnychronic
+
+Architecture has always represented the prototype of a work of art the reception of which is consummated by a collectivity in a state of distraction... Architecture [is] appropriated in a twofold manner: by use and by perception, or rather, by touch and sight. Such appropriation cannot be understood in terms of the attentive concentration of a tourist before a famous building... [Buildings are appropriated] not so much by attention as by habit.
+
+This is the drunken-seeming meander of a woman speaking on a mobile phone. I think we all recognize this behavior. I do it myself. It’s a dead giveaway that the person is immersed in a condition of, at best, ambivalent adjacency. You can’t tell me that the woman in this photo is responding to the spatial circumstances around her, except as boundary constraints of the crudest order. She’s surely making space, but her choices in doing so are guided by other logics than those that have governed urban form throughout history, the conditions that undergird our understanding of walls, doors, thoroughfares, intersections, and such. To me, if anything can rightly be called “schizogeography,” it’s this.
+The mobile phone is just the beginning
+
+I think it’s important to recognize that technological agency is contingent on its use within a given context toward an explicit goal.
+
+In Japan, the mobile phone (or keitai) has been described by Kenichi Fujimoto as a personal “territory machine” capable of transforming any space—a subway train seat, a grocery store aisle, a street corner—into one’s own room and personal paradise.
+
+In Japan, the mobile phone (or keitai) has been described by Kenichi Fujimoto as a personal “territory machine” capable of transforming any space—a subway train seat, a grocery store aisle, a street corner—into one’s own room and personal paradise.
+
+What’s interesting is not that urban space itself is changed but more that new hybrid spaces are performed/enacted through habits of mobile phone use.
+
+Georg Simmel noted at the beginning of the 20th century, before the introduction of buses, subways, and trains in Berlin, people weren’t accustomed to staring at each other for the course of minutes or hours without speaking to each other
+
+Hannah Arendt has described public space as the place where we encounter the stranger, a space of friction that breeds tolerance through encountering differences in opinion, social standing, ethnicity, economic background, etc. Yet so many of the applications being developed for iPods, Blackberrys, and mobile phones are oriented toward finding a partner with similar interests and maintaining constant contact with our established social networks or favorite places and things. So looking forward, it would seem one strategy for urban computing would be to reclaim urban space as a place for encountering difference.
+
+Your quoting Hannah Arendt is entirely apropos, and to my mind it’s the extent to which this class of systems opens up a safe space within which we can learn to engage with the Other that it will come to be seen as successful.
+
+Right. You’re referring to his project “Participatory Urbanism”, [16] which explores augmenting mobile devices with environmental sensors measuring air quality, noise pollution, UV levels, water quality, etc. He argues that by “empowering everyday citizens to collectively participate in super-sampling their life, city, and environment,” one can effectively “persuade both individuals and civic government towards positive improvements in air quality and environmental change.” Eric Paulos
