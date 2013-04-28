@@ -1,0 +1,11 @@
+axis?
+z - different social club
+y - visibility
+x - temporality
+
+size of circle?
+scale of network
+
+color?
+type of network
+

@@ -1,0 +1,102 @@
+*{text-decoration: none;font-weight: 100;}
+
+body {
+	font-family: "Verdana","Akzidenz Grotesk BE LightCn", "HelveticaNeue-Light", "Helvetica Neue Light", "Swis721 LtCn BT", "Arial Narrow", Arial, sans-serif;
+	font-weight: normal;
+	text-decoration: none;
+	background-color: #FFF;
+	max-width: 600px;
+	padding: 50px;
+	font-size: 14px;
+	background-image: url(http://anar.ch/xBrd/GridBkgrnd.gif);
+}
+
+
+
+.TableHeadingColor,h1,h2,h3,.FrameTitleFont,.FrameHeadingFont {
+	font-family: Impact, "MgOpen Modata", "HelveticaNeue-Light", "Helvetica Neue Light", "Swis721 LtCn BT", "Arial Narrow", "Arial Black", Arial, sans-serif;
+	font-weight: 100;
+}
+
+h1,h2{
+	background-image: url(http://anar.ch/xBrd/GridBkgrndBlk.gif);
+	margin: 20px 0px 20px 0px;
+	line-height: 87%;
+	padding: 10px 20px;
+	clear: right;
+}
+
+h1{	font-size: 3.5em; }
+h2{	font-size: 5em; }
+h3{	font-size: 1.4em; }
+th{ font-size: 1.4em;font-weight: 100;}
+.FrameTitleFont{font-size: 2em;}
+.FrameItemFont{font-size: 0.8em; line-height: 90%; }
+#FrameItemFont{font-size: 0.8em; line-height: 90%;}
+.FrameHeadingFont{font-size: 1em;}
+
+
+pre{
+	font-family: "Verdana", "DejaVu Sans Mono", "OCR A Extended","Lucida Console", "Monaco", Terminal, "Courier new";
+	font-size: 10px;
+}
+
+
+
+
+/* Table colors */
+.TableHeadingColor     {background: #AAA;} /* Dark mauve */
+.TableSubHeadingColor  {
+	background-color: #DDC8D1;
+} /* Dark mauve */
+.TableRowColor         { background: #E5e5e5} /* White */
+
+.FrameItemFont{
+	font-weight: normal;
+	text-decoration: none;
+}
+
+
+table{
+	border: none;
+}
+deprecated{
+	color: #999588;
+	text-decoration:blink;
+}
+
+
+
+
+.NavBarCell1{
+	border: 1px solid #EEEA77;
+	background-color: #FFFBAA;
+}
+
+.NavBarFont1,.NavBarFont1Rev{font-size: 1.4em;font-weight: normal;}
+
+
+
+a{font-weight: normal;}
+
+a:link,a:visited {
+	color: #EE2255;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #920142;
+	/*background-color: #FEE;*/
+}
+a:active {
+	text-decoration: none;
+	color: #FF9393;
+}
+
+
+.NavBarFont1 A:visited{color: #000;}
+
+hr {
+	border: 1px dashed #C0C0C0;
+}
