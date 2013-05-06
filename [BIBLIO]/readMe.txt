@@ -1,3 +1,3 @@
 bibliography and notes are available on zotero.org
 
-details are....
+look for my user name: phil langley
