@@ -1,0 +1,30 @@
+# Alias Wavefront MTL File Exported from SketchUp
+# with OBJexporter (c) 2013 TIG
+# Made for 'L3-Zone1.obj'
+
+newmtl Default_Material
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.333 0.333 0.333
+Ns 0
+d 1
+Tr 1
+
+newmtl Translucent_Glass_Blue
+Ka 0.392157 0.584314 0.929412
+Kd 0.392157 0.584314 0.929412
+Ks 0.333 0.333 0.333
+Ns 0
+d 0.5
+Tr 0.5
+
+newmtl Concrete_Form_4x8
+Ka 0.654902 0.666667 0.658824
+Kd 0.654902 0.666667 0.658824
+Ks 0.333 0.333 0.333
+Ns 0
+d 1
+Tr 1
+map_Kd L3-Zone1_Textures/Concrete_Form_4x8.PNG
+
+#EOF

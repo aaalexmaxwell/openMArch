@@ -1,0 +1,30 @@
+# Alias Wavefront MTL File Exported from SketchUp
+# with OBJexporter (c) 2013 TIG
+# Made for 'L0-Zone2.obj'
+
+newmtl Default_Material
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.333 0.333 0.333
+Ns 0
+d 1
+Tr 1
+
+newmtl Brick_Antique
+Ka 0.576471 0.411765 0.278431
+Kd 0.576471 0.411765 0.278431
+Ks 0.333 0.333 0.333
+Ns 0
+d 1
+Tr 1
+map_Kd L0-Zone2_Textures/Brick_Antique.PNG
+
+newmtl Translucent_Glass_Blue
+Ka 0.392157 0.584314 0.929412
+Kd 0.392157 0.584314 0.929412
+Ks 0.333 0.333 0.333
+Ns 0
+d 0.5
+Tr 0.5
+
+#EOF
