@@ -41,13 +41,11 @@ void keyReleased() {
       int m = minute();  
       int h = hour();    
       String time = " <" + str(h) + "-" + str(m) + "-" + str(s) + ">";
-//      println(imLoc + imName);
       
       try {
         save(imName);
         String message = "oh good...a new image from..." + " #" +teamName + " #" + imNameTag +time; // + " sent-" h + "-" + m + "-" + s;
         File imageFile = new File(imLoc + imName);
-//        println(imLoc + imName);
         StatusUpdate status = new StatusUpdate(message);
         status.setMedia(imageFile);
         
