@@ -1,0 +1,8 @@
+Access level 		Read and write
+
+Consumer key 		JSnZ0NdCQvCAAaDdVSdIw
+Consumer secret 	xDgfjqsi83LyEsQuBbOFG9skc4g8ieVnDO0ZH5fJCfs
+Request token URL 	https://api.twitter.com/oauth/request_token
+
+Access token 		1490165892-1awck08TTO9YwaJqFtNIG0eZyZfCH9rIgSSdy9L
+Access token secret 	GjYO8tC8YhEpAaAXZTlumVZQi9bMu2bSOv2wDON2r8
