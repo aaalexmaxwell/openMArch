@@ -1,3 +1,19 @@
+import twitter4j.conf.*;
+import twitter4j.internal.async.*;
+import twitter4j.internal.org.json.*;
+import twitter4j.internal.logging.*;
+import twitter4j.json.*;
+import twitter4j.internal.util.*;
+import twitter4j.management.*;
+import twitter4j.auth.*;
+import twitter4j.api.*;
+import twitter4j.util.*;
+import twitter4j.internal.http.*;
+import twitter4j.*;
+import twitter4j.internal.json.*;
+
+String teamName = "teamNameGoesHere";
+
 int flrCalc=4;
 int simHours = 24;
 int w = 1200;
@@ -13,6 +29,9 @@ PFont largeText;
 PFont smallText;
 
 void setup(){ 
+  ////////////////establish twitter connection
+  connectTwitter();
+  ////////////////establish twitter connection 
   background(255);
   size (w, h);
   largeText = loadFont("Swiss721BT-BoldCondensedOutline-72.vlw");
