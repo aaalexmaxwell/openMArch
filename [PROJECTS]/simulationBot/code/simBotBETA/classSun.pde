@@ -1,7 +1,7 @@
 class sunType1{
   
   int posX;
-  int posY=10;
+  int posY=120;
   float dia;
   float col;
   boolean grow = true;
@@ -11,7 +11,7 @@ class sunType1{
   sunType1(){
   }
   
-  void display(){
+  void timeCheck(){
     
     if (posY==10){grow=true;} 
     if (posY==250){grow=false;}
@@ -25,27 +25,29 @@ class sunType1{
       if (clockTime==24){clockTime=0;}
       posY--;
     }
+  }
+  
+  void display(){
+    ///draw panel
+    noStroke();
+    fill(0,50);
+    rect(w-200,0, 200, h);
     ///draw moon
-    dia = 48-(posX/2);
+    dia = 48;
+    posX=w-100;
     noStroke();
     fill(255,280-posY);
-    ellipse(w-200, 120+posY,dia,dia);
+    ellipse(posX, 120+posY,dia,dia);
     ///draw sun
     dia = (posY/2)+50;
     noStroke();
     fill(255, posY,0, posY);
-    ellipse(w-200,h-posY,dia,dia);
-    ///draw moon
-//    dia = 48-(posX/5);
-//    noStroke();
-//    fill(255,280-posY);
-//    ellipse(w-200, 240-posY,dia,dia);
+    ellipse(posX,h-posY,dia,dia);
     ///draw clock
     fill(80);
     textFont(largeText);
     textAlign(RIGHT);
     text(clockTime +"h", w-20,70);
-
   }
 }
 
