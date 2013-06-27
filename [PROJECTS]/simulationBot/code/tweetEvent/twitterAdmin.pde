@@ -44,7 +44,7 @@ void keyReleased() {
       
       try {
         save(imName);
-        String message = "oh good...a new image from..." + " #" +teamName + " #" + imNameTag +time; // + " sent-" h + "-" + m + "-" + s;
+        String message = "#simBotBETA" + " oh good...a new image from..." + " #" +teamName + " #" + imNameTag +time; // + " sent-" h + "-" + m + "-" + s;
         File imageFile = new File(imLoc + imName);
         StatusUpdate status = new StatusUpdate(message);
         status.setMedia(imageFile);

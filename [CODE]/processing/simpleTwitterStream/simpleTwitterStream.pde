@@ -4,27 +4,28 @@ SimpleTwitterStreaming
  2011-10-18
  http://neufuture.com
  
- 
  */
 
 ///////////////////////////// Config your setup here! ////////////////////////////
 
-// This is where you enter your Oauth info
-static String OAuthConsumerKey = "cmQAW9VpV7wXG4HILY2bQ";
-static String OAuthConsumerSecret = "lq5aSz1NgfWRo3LSAibo3bNKezX68ZCRbxkkBZuen8";
-// This is where you enter your Access Token info
-static String AccessToken = "583742623-0OJhVh9R97ac3lIRoygfbexSMXshLkrDrTxHReTH";
-static String AccessTokenSecret = "9rJgkfMRW3EDVYJ0kll3sXCXtysRdIaJ2UYlvPSN0";
+static String OAuthConsumerKey = "JSnZ0NdCQvCAAaDdVSdIw";
+static String OAuthConsumerSecret = "xDgfjqsi83LyEsQuBbOFG9skc4g8ieVnDO0ZH5fJCfs";
+static String AccessToken = "1490165892-1awck08TTO9YwaJqFtNIG0eZyZfCH9rIgSSdy9L";
+static String AccessTokenSecret = "GjYO8tC8YhEpAaAXZTlumVZQi9bMu2bSOv2wDON2r8";
 
 // if you enter keywords here it will filter, otherwise it will sample
 String[] keywords = {
-  "#lfc"
+  "#simBotBETA"
 };
 
 
 ///////////////////////////// End Variable Config ////////////////////////////
 
 TwitterStream twitter = new TwitterStreamFactory().getInstance();
+Twitter twitterTweet = new TwitterFactory().getInstance();
+
+
+
 PImage img;
 boolean imageLoaded;
 
@@ -36,6 +37,7 @@ void setup() {
   println(keywords);
 
   connectTwitter();
+  
   twitter.addListener(listener);
   if (keywords.length==0) twitter.sample();
   else twitter.filter(new FilterQuery().track(keywords));
