@@ -7,20 +7,36 @@ class tweetCol{
   int index;
   
   tweetCol(){
+
     ///initialize temp values
     for (int i=0; i<nTeams; i++){
-      tweetText[i] = "#team"+str(i)+"#sketch1";
+      tweetText[i] = "#phil" + "#simBotBase" + "#simBotBETA";
+      //tweetText[i] = "#" + teamName + "#" + sketchName + "#simBotBETA";
     }
     for (int i=0; i<nTeams; i++){
-      tweetMedia[i] = baseFolderLoc;
+      tweetMedia[i] = " ";
     }
     for (int i=0; i<nTeams; i++){
-      teamName[i] = "team" + i;
+      teamName[i] = " ";
     }
     for (int i=0; i<nTeams; i++){
-      sketchName[i] = "sketch1";
+      sketchName[i] = " ";
     }
     ///initialize temp values
+    
+  }
+  
+  void updateTweetData(){
+    
+    for (int i=0; i<nTeams; i++){
+      ///split tweet by hash tag
+      String []tempT = split(tweetText[i],'#'); 
+      trim(tempT);
+      ////assign tweet data
+      teamName[i] = trim(tempT[1]);
+      sketchName[i] = trim(tempT[2]);
+      tweetMedia[i] = baseFolderLoc + teamName[i] + "\\" + sketchName[i] + "\\" + sketchName[i] + ".jpg";
+    }
   }
   
   void displayTweets(){
@@ -29,36 +45,36 @@ class tweetCol{
     ////display the tweet content....
     fill(255,0,0);
     textFont(smallText);
-    textSize(15);
     textAlign(LEFT);
+    
     for (int i=0; i<nTeams; i++){
-      
-      ///split tweet by hash tag
-      String []tempT = split(tweetText[i],'#'); 
-      trim(tempT);
-
       ///show team name
-      teamName[i] = trim(tempT[1]);
       noStroke();
       fill(70);
       rect((300*i), 0, 25,25);
+      textSize(15);
       text(teamName[i], (300*i)+30, 15);
       
       ///show sketch name
-      sketchName[i] = trim(tempT[2]);
       noStroke();
       fill(70);
       rect((300*i), 0, 25,25);
+      textSize(15);
       text(sketchName[i], (300*i), 60);
       
       ///show tweet content
-      text(tweetText[i], (300*i), 80);
+      String []tempT = split(tweetText[i],'#');
+      noStroke();
+      textSize(10); 
+      text(tempT[0], (300*i), 90);
+//      for (int j=0; j<tempT.length-1; j++){
+//        text(tempT[j], (300*i), 60+(20*j));
+//      }
     
       ///show images
-      tweetMedia[i] = baseFolderLoc + teamName[i] + "\\" + sketchName[i] + "\\" + sketchName[i] + ".jpg";
       PImage img = loadImage(tweetMedia[i]);
-      image(img, 10+(300*i), h-120, 90, 65);
-      
+      ///println(tweetMedia[i]);
+      ///image(img, 10+(300*i), h-120, img.width/2, img.width/2);
     }
     ////display the tweet content....
     //////////////////////////////////////////

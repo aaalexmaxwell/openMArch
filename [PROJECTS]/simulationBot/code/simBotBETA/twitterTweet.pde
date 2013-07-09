@@ -1,7 +1,8 @@
 /////////SEND TWEETS
-void keyReleased() {
-  
-  if (key == 't' || key == 'T') {
+//void keyReleased() {
+//  
+//  if (key == 't' || key == 'T') {
+void tweetNewImage(){
 
       ///////////////////////sendTweet  
       String imLoc= savePath("");
@@ -15,7 +16,9 @@ void keyReleased() {
 
       try {
         save(imName);
-        String message = "oh good...a new image from..." + " #" +teamName + " #" + imNameTag +"compiled" +time;
+        teamName = tweetCollector.teamName[0];
+        sketchName = tweetCollector.sketchName [0];
+        String message = "oh good...a new image from..." + " #" +teamName + " #" +sketchName + " #simBotSays" + time;
         File imageFile = new File(imLoc + imName);
         StatusUpdate status = new StatusUpdate(message);
         status.setMedia(imageFile);
@@ -27,8 +30,7 @@ void keyReleased() {
         println("Send tweet: " + e + " Status code: " + e.getStatusCode());
       }
       ///////////////////////sendTweet 
-  }
+//  }        
 }
-
 
 

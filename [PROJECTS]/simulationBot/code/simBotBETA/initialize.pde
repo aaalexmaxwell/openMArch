@@ -1,7 +1,6 @@
 void initializeTeams(){
   for (int i=0; i<nTeams; i++){
     team[i] = new teamType1(i);
-    team[i].update();
     team[i].loadSimData();
     team[i].sortData();
   }
@@ -13,4 +12,5 @@ void initializeSun(){
 
 void initializeTweetCollector(){
    tweetCollector = new tweetCol();
+   tweetCollector.updateTweetData();
 }
