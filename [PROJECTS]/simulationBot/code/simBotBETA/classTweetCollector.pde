@@ -73,8 +73,8 @@ class tweetCol{
     
       ///show images
       PImage img = loadImage(tweetMedia[i]);
-      ///println(tweetMedia[i]);
-      ///image(img, 10+(300*i), h-120, img.width/2, img.width/2);
+      println(tweetMedia[i]);
+      image(img, 10+(300*i), h-120, img.width/2, img.width/2);
     }
     ////display the tweet content....
     //////////////////////////////////////////
