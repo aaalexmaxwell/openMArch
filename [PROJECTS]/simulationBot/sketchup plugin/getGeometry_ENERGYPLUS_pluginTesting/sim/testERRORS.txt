@@ -1,0 +1,27 @@
+Program Version,EnergyPlus-Windows-64 8.0.0.008, YMD=2013.07.10 11:40,IDD_Version 8.0.0.008
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_783814428", in Zone="L0_ZONE1".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** CheckUsedConstructions: There are 240 nominally unused constructions in input.
+   **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;
+   ************* Testing Individual Branch Integrity
+   ************* All Branches passed integrity testing
+   ************* Testing Individual Supply Air Path Integrity
+   ************* All Supply Air Paths passed integrity testing
+   ************* Testing Individual Return Air Path Integrity
+   ************* All Return Air Paths passed integrity testing
+   ************* No node connection errors were found.
+   ************* Beginning Simulation
+   ************* Simulation Error Summary *************
+   ************* There are 57 unused schedules in input.
+   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.
+   *************
+   ************* ===== Final Error Summary =====
+   ************* The following error categories occurred.  Consider correcting or noting.
+   ************* Nominally Unused Constructions
+   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause
+   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm
+   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 2 Warning; 0 Severe Errors; Elapsed Time=00hr 00min 39.82sec

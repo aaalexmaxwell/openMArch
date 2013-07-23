@@ -1,0 +1,3935 @@
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!
+!    ANAR+ EnergyPlus output
+!
+!    created from ANAR+ for thermal analysis
+!
+!    http://ANAR.ch
+!    Guillaume LaBelle & Julien Nembrini
+!
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!!!
+!!! energyPlus.idf
+!!!
+!!!
+!!! Basic file description:   	basic scene file for automatic idf file creation using ANAR+ scripting engine
+!!!								http://ANAR.ch                          
+!!!
+!!! Highlights:               	uses macros to include all basic materials and constructions from E+ DataSets
+!!!								provides additional materials for basic computations.
+!!!						    
+!!!								IMPORTANT
+!!!								/usr/local/EnergyPlus should sym link to the E+ install folder
+!!!
+!!!
+!!!
+!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+
+  Version,8.0.0;						 
+
+  ##def1 HVAC 1
+
+
+
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+
+
+!  ##fileprefix C:\ANAR\EnergyPlus\DataSets\					
+
+! materials and construction according to ASHRAE
+  ##include include/ASHRAE_2005_HOF_Materials.idf 
+
+! windows constructions
+  ##include include/WindowConstructs.idf 
+  ##include include/WindowGasMaterials.idf 
+  ##include include/WindowGlassMaterials.idf 
+
+! standard schedules
+  ##include include/Schedules.idf 
+  
+
+
+
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+
+  
+  Timestep,6;						
+  
+  Building,
+    ANAR.ch,                 				!- Name
+    0.0000000E+00,           				!- North Axis {deg}
+    Suburbs,                 				!- Terrain
+    0.01,			           				!- Loads Convergence Tolerance Value
+    0.1,		               				!- Temperature Convergence Tolerance Value {deltaC}
+    FullExteriorWithReflections, 			!- Solar Distribution
+    25,       				!- Maximum Number of Warmup Days
+    6;					!- Minimum Number of Warmup Days
+  
+  SurfaceConvectionAlgorithm:Inside,Simple;
+
+  SurfaceConvectionAlgorithm:Outside,SimpleCombined;
+
+  HeatBalanceAlgorithm,ConductionTransferFunction;
+  
+  ShadowCalculation,AverageOverDaysInFrequency,20,,SutherlandHodgman,SimpleSkyDiffuseModeling;
+
+  SimulationControl,
+    No,                      	!- Do Zone Sizing Calculation
+    No,                      	!- Do System Sizing Calculation
+    No,                      	!- Do Plant Sizing Calculation
+    No,                     	!- Run Simulation for Sizing Periods
+    Yes;                      	!- Run Simulation for Weather File Run Periods
+    
+    
+  GlobalGeometryRules,
+    UpperRightCorner,        !- Starting Vertex Position
+    CounterclockWise,        !- Vertex Entry Direction
+    World,                   !- Coordinate System
+    World,                   !- Daylighting Reference Point Coordinate System
+    World;                   !- Rectangular Surface Coordinate System
+  
+
+   RunPeriod,
+    ,                        !- Name
+    1,                    
+    1,                    
+    12,                    
+    31,                    
+    UseWeatherFile,          !- Day of Week for Start Day
+    Yes,                     !- Use Weather File Holidays and Special Days
+    Yes,                     !- Use Weather File Daylight Saving Period
+    No,                      !- Apply Weekend Holiday Rule
+    Yes,                     !- Use Weather File Rain Indicators
+    Yes;                     !- Use Weather File Snow Indicators
+  
+! should check objects related to site such as this     
+    Site:GroundTemperature:BuildingSurface,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0,18.0;
+
+##ifdef WARNINGS 
+
+	Output:Diagnostics,DisplayExtraWarnings,DisplayAdvancedReportVariables;
+	Output:Diagnostics,DisplayUnusedSchedules;
+  	Output:Constructions,Constructions,Materials;
+
+##endif
+
+!! !!!!!!!!!!!!!!!!!!!!!!!!    
+!! SCHEDULE TYPE LIMITS
+!! !!!!!!!!!!!!!!!!!!!!!!!!    
+  
+  
+  ScheduleTypeLimits,
+    Any Number;              !- Name
+
+
+  ScheduleTypeLimits,
+    Temperature,             !- Name
+    -60,                     !- Lower Limit Value
+    200,                     !- Upper Limit Value
+    CONTINUOUS,              !- Numeric Type
+    Temperature;             !- Unit Type
+
+  
+!! !!!!!!!!!!!!!!!!!!!!!!!!    
+!! PREDEFINED SCHEDULES 
+!! !!!!!!!!!!!!!!!!!!!!!!!!    
+ 
+ 
+Schedule:Compact,
+    Seasonal Tree Shading,   !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 3/31,
+    For: AllDays,  
+    Until: 24:00, 0.9,
+    Through: 4/30,   
+    For: AllDays,     
+    Until: 24:00, 0.6, 
+    Through: 10/31,   
+    For: AllDays,     
+    Until: 24:00, 0.2, 
+    Through: 11/30,   
+    For: AllDays,     
+    Until: 24:00, 0.6, 
+    Through: 12/31,   
+    For: AllDays,     
+    Until: 24:00, 0.9; 
+ 
+
+!! !!!!! !!!!!!!!!! !!!!!!!!!    
+!! USER DEFINED SCHEDULES
+!! !!!!! !!!!!!!!!! !!!!!!!!!    
+ 
+!EnergyPlusUserDefinedSchedules
+    
+
+!! !!!!! !!!!!!!!!! !!!!!!!!!    
+!! ANAR+ DEFINED MATERIALS
+!! !!!!! !!!!!!!!!! !!!!!!!!! 
+
+! STYRODUR:
+
+Material,
+    expanded polystyrene - extruded - 40mm,  !- Name
+    MediumSmooth,            !- Roughness
+    0.04,                    !- Thickness {m}
+    0.029,                   !- Conductivity {W/m-K}
+    29,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    expanded polystyrene - extruded - 80mm,  !- Name
+    MediumSmooth,            !- Roughness
+    0.08,                    !- Thickness {m}
+    0.029,                   !- Conductivity {W/m-K}
+    29,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    expanded polystyrene - extruded - 120mm,  !- Name
+    MediumSmooth,            !- Roughness
+    0.12,                    !- Thickness {m}
+    0.029,                   !- Conductivity {W/m-K}
+    29,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    expanded polystyrene - extruded - 160mm,  !- Name
+    MediumSmooth,            !- Roughness
+    0.16,                    !- Thickness {m}
+    0.029,                   !- Conductivity {W/m-K}
+    29,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    expanded polystyrene - extruded - 200mm,  !- Name
+    MediumSmooth,            !- Roughness
+    0.20,                    !- Thickness {m}
+    0.029,                   !- Conductivity {W/m-K}
+    29,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    expanded polystyrene - extruded - 240mm,  !- Name
+    MediumSmooth,            !- Roughness
+    0.24,                    !- Thickness {m}
+    0.029,                   !- Conductivity {W/m-K}
+    29,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    expanded polystyrene - extruded - 280mm,  !- Name
+    MediumSmooth,            !- Roughness
+    0.28,                    !- Thickness {m}
+    0.029,                   !- Conductivity {W/m-K}
+    29,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+    
+    
+! STYROPOR:
+
+Material,
+    expanded polystyrene - molded beads - 40mm,  !- Name
+    VeryRough,               !- Roughness
+    0.04,                    !- Thickness {m}
+    0.037,                   !- Conductivity {W/m-K}
+    16,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    expanded polystyrene - molded beads - 80mm,  !- Name
+    VeryRough,               !- Roughness
+    0.08,                    !- Thickness {m}
+    0.037,                   !- Conductivity {W/m-K}
+    16,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    expanded polystyrene - molded beads - 120mm,  !- Name
+    VeryRough,               !- Roughness
+    0.12,                    !- Thickness {m}
+    0.037,                   !- Conductivity {W/m-K}
+    16,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    expanded polystyrene - molded beads - 160mm,  !- Name
+    VeryRough,               !- Roughness
+    0.16,                    !- Thickness {m}
+    0.037,                   !- Conductivity {W/m-K}
+    16,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    expanded polystyrene - molded beads - 200mm,  !- Name
+    VeryRough,               !- Roughness
+    0.20,                    !- Thickness {m}
+    0.037,                   !- Conductivity {W/m-K}
+    16,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    expanded polystyrene - molded beads - 240mm,  !- Name
+    VeryRough,               !- Roughness
+    0.24,                    !- Thickness {m}
+    0.037,                   !- Conductivity {W/m-K}
+    16,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+
+Material,
+    expanded polystyrene - molded beads - 280mm,  !- Name
+    VeryRough,               !- Roughness
+    0.28,                    !- Thickness {m}
+    0.037,                   !- Conductivity {W/m-K}
+    16,                      !- Density {kg/m3}
+    1210;                    !- Specific Heat {J/kg-K}
+    
+Material,
+    Limestone 240mm,		 !- Name
+    MediumRough,             !- Roughness
+    0.24,                  	 !- Thickness {m}
+    1.1,                     !- Conductivity {W/m-K}
+    1800,                    !- Density {kg/m3}
+    790;                     !- Specific Heat {J/kg-K}
+
+
+Material:RoofVegetation,     
+    extensive planting, !- Name     
+    0.5, !- Height of Plants {m}  
+    5, !- Leaf Area Index {dimensionless}     
+    0.2, !- Leaf Reflectivity {dimensionless}     
+    0.95, !- Leaf Emissivity     
+    180, !- Minimum Stomatal Resistance (s/m)     
+    EcoRoofSoil, !- Soil Layer Name     
+    MediumSmooth, !- Roughness     
+    0.18, !- Thickness {m}     
+    0.4, !- Conductivity (dry soil) {W/m-K}     
+    641, !- Density (dry soil) {kg/m3}     
+    1100, !- Specific Heat (dry soil) {J/kg-K}     
+    0.95, !- Thermal Absorptance     
+    0.8, !- Solar Absorptance     
+    0.7, !- Visible Absorptance     
+    0.4, !- Max volumetric moisture content of the soil layer (saturation)     
+    0.01, !- Min (residual) volumetric moisture content of the soil layer     
+    0.2; !- Initial volumetric moisture content of the soil layer     
+ 
+
+
+
+
+!! !!!!! !!!!!!!!!! !!!!!!!!!!!!!
+!! ANAR+ PREDEFINED CONSTRUCTIONS
+!! !!!!! !!!!!!!!!! !!!!!!!!!!!!!    
+
+Construction,
+    Concrete Exterior Wall - wooden cladding,    	!- Name
+    G05 25mm wood,									!- Outside Layer
+    F04 Wall air space resistance,         			!- Layer 2
+    M15 200mm heavyweight concrete;  				!- Layer 3  
+
+
+
+
+Construction,
+    Concrete Exterior Wall - lightly insulated,    	!- Name
+    Cement Plaster: Sand aggregate - 10mm,			!- Outside Layer
+    expanded polystyrene - extruded - 40mm,         !- Layer 2
+    M15 200mm heavyweight concrete;  				!- Layer 3
+
+Construction,
+    Concrete Exterior Wall - well insulated,    	!- Name
+    Cement Plaster: Sand aggregate - 10mm,			!- Outside Layer
+    expanded polystyrene - extruded - 160mm,        !- Layer 2
+    M15 200mm heavyweight concrete;  				!- Layer 3
+
+Construction,
+    Concrete Exterior Wall - strongly insulated,   	!- Name
+    Cement Plaster: Sand aggregate - 10mm,			!- Outside Layer
+    expanded polystyrene - extruded - 280mm,        !- Layer 2
+    M15 200mm heavyweight concrete;  				!- Layer 3 
+
+
+
+
+Construction,
+    Limestone Exterior Wall - lightly insulated,    !- Name
+    Cement Plaster: Sand aggregate - 10mm,			!- Outside Layer
+    expanded polystyrene - extruded - 40mm,         !- Layer 2
+    Limestone 240mm,  								!- Layer 3
+    Cement Plaster: Sand aggregate - 10mm;			!- Layer 4
+
+Construction,
+    Limestone Exterior Wall - well insulated,    	!- Name
+    Cement Plaster: Sand aggregate - 10mm,			!- Outside Layer
+    expanded polystyrene - extruded - 160mm,        !- Layer 2
+    Limestone 240mm,  								!- Layer 3
+    Cement Plaster: Sand aggregate - 10mm;			!- Layer 4
+
+!Construction,
+!    Limestone Exterior Wall - strongly insulated,   !- Name
+!    Cement Plaster: Sand aggregate - 10mm,			!- Outside Layer
+!    expanded polystyrene - extruded - 280mm,        !- Layer 2
+!    Limestone 240mm,  								!- Layer 3
+!    Cement Plaster: Sand aggregate - 10mm;			!- Layer 4
+
+
+
+
+Construction,
+    Light Exterior Wall - lightly insulated,    	!- Name
+    Cement Plaster: Sand aggregate - 10mm,			!- Outside Layer
+    G01 16mm gypsum board,							!- Layer 2
+    expanded polystyrene - extruded - 40mm,         !- Layer 3
+    G01 16mm gypsum board,  						!- Layer 4
+    G01 16mm gypsum board;  						!- Layer 5
+
+Construction,
+    Light Exterior Wall - well insulated,    		!- Name
+    Cement Plaster: Sand aggregate - 10mm,			!- Outside Layer
+    G01 16mm gypsum board,							!- Layer 2
+    expanded polystyrene - extruded - 160mm,        !- Layer 3
+    G01 16mm gypsum board,  						!- Layer 4
+    G01 16mm gypsum board;  						!- Layer 5
+
+Construction,
+    Light Exterior Wall - strongly insulated,    	!- Name
+    Cement Plaster: Sand aggregate - 10mm,			!- Outside Layer
+    G01 16mm gypsum board,							!- Layer 2
+    expanded polystyrene - extruded - 280mm,        !- Layer 3
+    G01 16mm gypsum board,  						!- Layer 4
+    G01 16mm gypsum board;  						!- Layer 5
+
+
+
+
+
+
+Construction,
+    Brick Partition Wall - plastered,   			!- Name
+    Cement Plaster: Sand aggregate - 10mm,			!- Outside Layer
+    M01 100mm brick,        						!- Layer 2
+    Cement Plaster: Sand aggregate - 10mm;  		!- Layer 3
+
+
+Construction,
+    Light Partition Wall - insulated,   			!- Name
+    G01 16mm gypsum board,							!- Outside Layer
+    expanded polystyrene - extruded - 40mm,        	!- Layer 2
+    G01 16mm gypsum board;  						!- Layer 3
+    
+    
+    
+Construction,
+    Concrete Slab - wooden flooring,   				!- Name
+    M15 200mm heavyweight concrete,					!- Outside Layer
+    expanded polystyrene - extruded - 40mm,        	!- Layer 2
+    G06 50mm wood;  								!- Layer 3
+    
+Construction,
+    Concrete Slab - screed and linoluem flooring,   					!- Name
+    M15 200mm heavyweight concrete,										!- Outside Layer
+    expanded polystyrene - extruded - 40mm,        						!- Layer 2
+    Concrete: Cement/lime - mortar - and stucco - 1920 kg/m3 - 51mm, 	!- Layer 3 
+    Tile: asphalt - linoleum - vinyl - rubber;							!- Layer 4
+       
+Construction,
+    Light Slab - wooden flooring,   				!- Name
+    G01 16mm gypsum board,							!- Outside Layer
+    expanded polystyrene - extruded - 160mm,        !- Layer 2
+    G06 50mm wood;  								!- Layer 3
+
+
+
+Construction,
+    Medium Exterior Wall Insulated,    !- Name
+    M01 100mm brick,         !- Outside Layer
+    Insulation: Expanded polystyrene - extruded (smooth skin surface) (HCFC-142b exp.),  !- Layer 2
+    F04 Wall air space resistance,  !- Layer 3
+    G01a 19mm gypsum board;  !- Layer 4
+
+Construction,
+    Medium Roof/Ceiling Insulated,     !- Name
+    Insulation: Expanded polystyrene - extruded (smooth skin surface) (HCFC-142b exp.), !- Outside Layer 
+    M14a 100mm heavyweight concrete,   !- Layer 2
+    F05 Ceiling air space resistance,  !- Layer 3
+    F16 Acoustic tile;       !- Layer 4
+
+Construction,
+    Medium Partitions Insulated,       !- Name
+    G01a 19mm gypsum board,  !- Outside Layer
+    Insulation: Expanded polystyrene - extruded (smooth skin surface) (HCFC-142b exp.),  !- Layer 2
+    G01a 19mm gypsum board;  !- Layer 3
+
+Construction,
+    Medium Floor Insulated,            !- Name
+    F16 Acoustic tile,       !- Outside Layer
+    F05 Ceiling air space resistance,  !- Layer 2
+    M14a 100mm heavyweight concrete,  !- Layer 3
+    Insulation: Expanded polystyrene - extruded (smooth skin surface) (HCFC-142b exp.); !- Layer 4
+
+Construction,
+    Heavy Exterior Wall Insulated,     !- Name
+    M01 100mm brick,         !- Outside Layer
+    Insulation: Expanded polystyrene - extruded (smooth skin surface) (HCFC-142b exp.), !- Layer 2
+    M15 200mm heavyweight concrete,  !- Layer 3
+    F04 Wall air space resistance,  !- Layer 4
+    G01a 19mm gypsum board;  !- Layer 5
+
+Construction,
+    Heavy Roof/Ceiling Insulated,      !- Name
+    Insulation: Expanded polystyrene - extruded (smooth skin surface) (HCFC-142b exp.), !- Outside Layer
+    M15 200mm heavyweight concrete,  !- Layer 2
+    F05 Ceiling air space resistance,  !- Layer 3
+    F16 Acoustic tile;       !- Layer 4
+
+Construction,
+    Heavy Partitions Insulated,        !- Name
+    G01a 19mm gypsum board,  !- Outside Layer
+    Insulation: Expanded polystyrene - extruded (smooth skin surface) (HCFC-142b exp.), !- Layer 2
+    M05 200mm concrete block,!- Layer 3
+    G01a 19mm gypsum board;  !- Layer 4
+    
+Construction,
+    Heavy Floor Insulated,             !- Name
+    F16 Acoustic tile,       !- Outside Layer
+    F05 Ceiling air space resistance,  !- Layer 2
+    M15 200mm heavyweight concrete,  !- Layer 3
+    Insulation: Expanded polystyrene - extruded (smooth skin surface) (HCFC-142b exp.); !- Layer 4
+
+Construction,
+    door construction,       !- Name
+    G05 25mm wood;      !- Outside Layer
+
+
+
+!! !!!!! !!!!!!!!!! !!!!!!!!!    
+!! ZONE MIXINGS
+!! !!!!! !!!!!!!!!! !!!!!!!!!    
+
+! not working need to check
+
+!! !!!!! !!!!!!!!!! !!!!!!!!!    
+!! USER FORMATTED INPUT
+!! !!!!! !!!!!!!!!! !!!!!!!!!    
+
+
+
+
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+  
+
+  
+  Output:VariableDictionary,IDF, Name;
+  
+
+  Output:Variable,*,Zone Mean Air Temperature,hourly;
+  Output:Variable,*,Zone Mean Radiant Temperature,hourly;
+  Output:Variable,*,Zone Air Relative Humidity,hourly;
+  
+  Output:Variable,*,Site Outdoor Air Drybulb Temperature,hourly;
+  Output:Variable,*,Site Outdoor Air Relative Humidity,hourly;
+
+
+
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+
+  Output:Variable,*,Site Wind Speed,hourly;
+  Output:Variable,*,Site Wind Direction,hourly;
+          
+
+
+
+          
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! HVAC purchased air   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
+
+##ifdef HVAC
+
+  
+ScheduleTypeLimits,
+  HVACTemplate Any Number;                                 !- Name
+
+Schedule:Compact,
+  HVACTemplate-Always 1,                                   !- Name
+  HVACTemplate Any Number,                                 !- Type
+  Through: 12/31,                                          !- Field
+  For: AllDays,                                            !- Field
+  Until: 24:00,                                            !- Field
+  1;                                                       !- Field
+
+Schedule:Compact,
+  HVACTemplate-Always 4,                                   !- Name
+  HVACTemplate Any Number,                                 !- Type
+  Through: 12/31,                                          !- Field
+  For: AllDays,                                            !- Field
+  Until: 24:00,                                            !- Field
+  4;                                                       !- Field
+  
+  
+  
+  ! CAREFUL order is inverted in result file 
+  Output:Variable,*,Zone Air System Sensible Cooling Rate,hourly;
+  Output:Variable,*,Zone Air System Sensible Heating Rate,hourly;
+
+  Output:Variable,*,Zone Mechanical Ventilation Air Changes per Hour,hourly; !- HVAC Average [ach]
+
+##endif
+
+!! test
+!! Output:Variable,*,Opaque Surface Inside Face Conduction,hourly;
+
+
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! airflow network model   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+
+##ifdef AIRFLOW
+
+
+  AirflowNetwork:SimulationControl,
+    NaturalVentilation,      		!- Name
+    MultizoneWithoutDistribution,  	!- AirflowNetwork Control
+    SurfaceAverageCalculation,		!- Wind Pressure Coefficient Type
+    Every30Degrees,      			!- AirflowNetwork Wind Pressure Coefficient Array Name
+    ExternalNode,            		!- Height Selection for Local Wind Speed Calculation
+    LowRise,    		!- Building Type
+    500,                     		!- Maximum Number of Iterations {dimensionless}
+    ZeroNodePressures,       		!- Initialization Type
+    1.0E-04,                 		!- Relative Airflow Convergence Tolerance {dimensionless}
+    1.0E-05,                 		!- Absolute Airflow Convergence Tolerance {kg/s}
+    -0.5,                    		!- Convergence Acceleration Limit {dimensionless}
+    0.0, !- Azimuth Angle of Long Axis of Building {deg}
+    1.0;	!- Ratio of Building Width Along Short Axis to Width Along Long Axis
+
+  Schedule:Compact,
+    WindowVentSched,         !- Name
+    Any Number,              !- Schedule Type Limits Name
+    Through: 12/31,          
+    For: Weekdays, 
+    Until: 24:00, 20.0,     
+    For: Holiday,
+    Until: 24:00, 20.0,      
+    For: Weekends AllOtherDays, 
+    Until: 24:00, 20.0;    
+
+
+! Schedule NightVentilation
+Schedule:Compact,
+    NightVentilation,     !- Name
+    Fraction,                !- Schedule Type Limits Name
+    Through: 12/31,          !- Field 1
+    For: Weekdays,  	     !- Field 2
+    Until: 08:00, 1.0,       !- Field 4
+    Until: 18:00, 0.0,       !- Field 6
+    Until: 24:00, 1.0,       !- Field 8
+    For: Weekends AllOtherDays,  !- Field 9
+    Until: 10:00, 1.0,       !- Field 11
+    Until: 18:00, 0.0,       !- Field 13
+    Until: 24:00, 1.0;       !- Field 15
+
+
+  AirflowNetwork:MultiZone:WindPressureCoefficientArray,
+    Every30Degrees,        !- Name
+    0,                       !- Wind Direction 1 {deg}
+    30,                      !- Wind Direction 2 {deg}
+    60,                      !- Wind Direction 3 {deg}
+    90,                      !- Wind Direction 4 {deg}
+    120,                     !- Wind Direction 5 {deg}
+    150,                     !- Wind Direction 6 {deg}
+    180,                     !- Wind Direction 7 {deg}
+    210,                     !- Wind Direction 8 {deg}
+    240,                     !- Wind Direction 9 {deg}
+    270,                     !- Wind Direction 10 {deg}
+    300,                     !- Wind Direction 11 {deg}
+    330;                     !- Wind Direction 12 {deg}
+
+  AirflowNetwork:MultiZone:ReferenceCrackConditions,
+    ReferenceCrackConditions,!- Name
+    20.0,   !- Reference Temperature {C}
+    101325.0,  !- Reference Barometric Pressure {Pa}
+    0.0;  !- Reference Humidity Ratio {kg/kg}
+
+
+  Output:Variable,*,AFN Zone Infiltration Air Change Rate,hourly; !- HVAC Average [ach]
+
+##endif
+
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+
+OutputControl:SurfaceColorScheme,
+    Original,                !- Name
+    Text,                    !- Drawing Element 1 Type
+    3,                       !- Color for Drawing Element 1
+    Walls,                   !- Drawing Element 2 Type
+    3,                       !- Color for Drawing Element 2					    
+    Windows,                 !- Drawing Element 3 Type
+    4,                       !- Color for Drawing Element 3
+    GlassDoors,              !- Drawing Element 4 Type
+    4,                       !- Color for Drawing Element 4
+    Doors,                   !- Drawing Element 5 Type
+    4,                       !- Color for Drawing Element 5
+    Roofs,                   !- Drawing Element 6 Type
+    2,                       !- Color for Drawing Element 6
+    Floors,                  !- Drawing Element 7 Type
+    8,                       !- Color for Drawing Element 7
+    DetachedBuildingShades,  !- Drawing Element 8 Type
+    9,                       !- Color for Drawing Element 8
+    DetachedFixedShades,     !- Drawing Element 9 Type
+    5,                       !- Color for Drawing Element 9
+    AttachedBuildingShades,  !- Drawing Element 10 Type
+    6,                       !- Color for Drawing Element 10
+    DaylightReferencePoint1, !- Drawing Element 11 Type
+    10,                      !- Color for Drawing Element 11
+    DaylightReferencePoint2, !- Drawing Element 12 Type
+    5;                       !- Color for Drawing Element 12
+   
+  Output:Surfaces:Drawing, DXF, Triangulate3DFace, Original;
+
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+
+
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!   
+ 
+ 
+##ifdef TABLES 
+  
+	OutputControl:Table:Style,
+		Comma, ! Column Separator
+		JtoKWH; ! Unit Conversion
+	
+	
+	Output:Table:SummaryReports,
+		ClimaticDataSummary, !- Report 1 Name
+		EnvelopeSummary, !- Report 2 Name
+		LightingSummary, !- Report 3 Name
+		OutdoorAirSummary, !- Report 4 Name
+		SensibleHeatGainSummary; !- Report 5 Name
+	
+	Output:Table:Monthly,
+	    Zone Heating Summary,    !- Name
+	    ,                        !- Digits After Decimal
+	    Zone Air System Sensible Heating Energy, 
+	    SumOrAverage,          
+	    Zone Air System Sensible Heating Rate, 
+	    Maximum,               
+	    Site Outdoor Air Drybulb Temperature,      
+	    ValueWhenMaximumOrMinimum; 
+	
+	Output:Table:Monthly,
+	    Zone Cooling Summary,    !- Name
+	    ,                        !- Digits After Decimal
+	    Zone Air System Sensible Cooling Energy, 
+	    SumOrAverage,         
+	    Zone Air System Sensible Cooling Rate, 
+	    Maximum,              
+	    Site Outdoor Air Drybulb Temperature,       
+	    ValueWhenMaximumOrMinimum;
+	
+	Output:Table:Monthly,
+	    Zone Electric Summary,   !- Name
+	    ,                        !- Digits After Decimal
+	    Zone Lights Electric Energy, 
+	    SumOrAverage,        
+	!    Zone Lights Electric Energy, 
+	!    Maximum,             
+	    Zone Electric Equipment Electric Energy, 
+	    SumOrAverage,        
+	!    Zone Electric Equipment Electric Energy, 
+	!    Maximum,          
+	    Zone Ventilation Fan Electric Energy, 
+	    SumOrAverage;        
+	!    Zone Ventilation Fan Electric Energy, 
+	!    Maximum;          
+	    
+	Output:Table:Monthly,
+	    Space Gains,             !- Name
+	    ,                        !- Digits After Decimal
+	    Zone People Total Heating Energy, 
+	    SumOrAverage,    
+	    Zone Lights Total Heating Energy, 
+	    SumOrAverage,    
+	    Zone Electric Equipment Total Heating Energy, 
+	    SumOrAverage,    
+	    Zone Gas Equipment Total Heating Energy, 
+	    SumOrAverage,   
+	    Zone Hot Water Equipment Total Heating Energy, 
+	    SumOrAverage,   
+	    Zone Steam Equipment Total Heating Energy, 
+	    SumOrAverage,   
+	    Zone Other Equipment Total Heating Energy, 
+	    SumOrAverage,   
+	    Zone Total Internal Total Heating Energy,
+	    SumOrAverage;     
+	  
+	Output:Table:Monthly,
+	    Window Energy Zone Summary,  !- Name
+	    ,                        !- Digits After Decimal
+	    Zone Windows Total Heat Gain Energy, 
+	    SumOrAverage,          
+	    Zone Windows Total Heat Loss Energy, 
+	    SumOrAverage,          
+	    Zone Windows Total Transmitted Solar Radiation Energy,
+	    SumOrAverage,          
+	    Zone Exterior Windows Total Transmitted Beam Solar Radiation Energy, 
+	    SumOrAverage,          
+	    Zone Exterior Windows Total Transmitted Diffuse Solar Radiation Energy, 
+	    SumOrAverage,          
+	    Zone Interior Windows Total Transmitted Beam Solar Radiation Energy, 
+	    SumOrAverage,          
+	    Zone Interior Windows Total Transmitted Diffuse Solar Radiation Energy, 
+	    SumOrAverage;          
+	    
+	Output:Table:Monthly,
+	    Window Energy Summary,  !- Name
+	    ,                        !- Digits After Decimal
+	    Surface Window Transmitted Solar Radiation Energy,  
+	    SumOrAverage,          
+	    Surface Window Transmitted Beam Solar Radiation Energy, 
+	    SumOrAverage,          
+	    Surface Window Transmitted Diffuse Solar Radiation Energy, 
+	    SumOrAverage,          
+	    Window Heat Gain Energy, 
+	    SumOrAverage,          
+	    Window Heat Loss Energy, 
+	    SumOrAverage;          
+	        
+	    
+	    
+	Output:Table:Monthly,
+	    Wall Energy Zone Summary,  !- Name
+	    ,                        !- Digits After Decimal
+	    Surface Int Convection Heat Gain to Air, 
+	    SumOrAverage,       
+	    Surface Ext Convection Heat Rate, 
+	    SumOrAverage,       
+	    Surface Ext Thermal Radiation Heat Rate, 
+	    SumOrAverage,       
+	    Surface Ext Convection Heat Rate per Area, 
+	    SumOrAverage,       
+	    Surface Ext Thermal Radiation Heat Rate per Area, 
+	    SumOrAverage,       
+	    Surface Ext Convection Heat Loss to Outdoors, 
+	    SumOrAverage,       
+	    Surface Ext Thermal Radiation Heat Loss to Outdoors, 
+	    SumOrAverage;
+	            
+	Output:Table:Monthly,
+	    Airflow Energy Zone Summary,  !- Name
+	    ,                        !- Digits After Decimal
+	    AFN Zone Infiltration Sensible Heat Gain Energy, 
+	    SumOrAverage,       
+	    AFN Zone Mixing Sensible Heat Gain Energy,  
+	    SumOrAverage,       
+	    AFN Zone Infiltration Sensible Heat Loss Energy, 
+	    SumOrAverage,       
+	    AFN Zone Mixing Sensible Heat Loss Energy,  
+	    SumOrAverage,       
+	    AFN Zone Infiltration Latent Heat Gain Energy,
+	    SumOrAverage,       
+	    AFN Zone Infiltration Latent Heat Loss Energy,
+	    SumOrAverage,       
+	    AFN Zone Mixing Latent Heat Gain Energy,  
+	    SumOrAverage,       
+	    AFN Zone Mixing Latent Heat Loss Energy, 
+	    SumOrAverage,            
+	    AFN Zone Infiltration Air Change Rate,  
+	    SumOrAverage,      
+	    AFN Surface Venting Window or Door Opening Factor, 
+	    HoursPositive,     
+	    AFN Surface Venting Window or Door Opening Modulation Multiplier, 
+	    HoursNonNegative,
+	!    Zone Infiltration Sensible Heat Gain Energy,  
+	!    SumOrAverage,      
+	!    Zone Infiltration Sensible Heat Loss Energy,  
+	!    SumOrAverage,      
+	!    Zone Infiltration Latent Heat Gain Energy,  
+	!    SumOrAverage,      
+	!    Zone Infiltration Latent Heat Loss Energy,  
+	!    SumOrAverage,      
+	    Zone Infiltration Total Heat Gain Energy,  
+	    SumOrAverage,      
+	    Zone Infiltration Total Heat Loss Energy,  
+	    SumOrAverage,      
+	    Zone Infiltration Air Change Rate Energy,  
+	    SumOrAverage,      
+	!    Zone Ventilation Sensible Heat Gain Energy,  
+	!    SumOrAverage,      
+	!    Zone Ventilation Sensible Heat Loss Energy,  
+	!    SumOrAverage,      
+	!    Zone Ventilation Latent Heat Gain Energy,  
+	!    SumOrAverage,      
+	!    Zone Ventilation Latent Heat Loss Energy,  
+	!    SumOrAverage,      
+	    Zone Ventilation Total Heat Gain Energy,  
+	    SumOrAverage,      
+	    Zone Ventilation Total Heat Loss Energy,  
+	    SumOrAverage,      
+	    Zone Ventilation Air Change Rate Energy,  
+	    SumOrAverage;      
+	   
+	Output:Table:Monthly,
+	    Daylighting Report,      !- Name
+	    ,                        !- Digits After Decimal
+	    Site Exterior Beam Normal Illuminance, 
+	    HoursNonZero,            !- Aggregation Type for Variable or Meter 1
+	    Daylighting Lighting Power Multiplier, 
+	    SumOrAverageDuringHoursShown, 
+	    Daylighting Lighting Power Multiplier,
+	    MinimumDuringHoursShown, 
+	    Daylighting Reference Point 1 Illuminance, 
+	    SumOrAverageDuringHoursShown, 
+	    Daylighting Reference Point 1 Glare Index, 
+	    SumOrAverageDuringHoursShown; 
+	  
+	
+	Output:Table:Monthly,
+	    Occupant Comfort Data Summary,  !- Name
+	    5,                       !- Digits After Decimal
+	    Zone People Occupant Count, 
+	    HoursNonZero,           
+	    Zone Air Temperature,
+	    SumOrAverageDuringHoursShown, 
+	    Zone Air Relative Humidity, 
+	    SumOrAverageDuringHoursShown; 
+
+##endif
+
+  
+  
+	Output:Meter:MeterFileOnly,DistrictHeating:Facility,daily;
+	Output:Meter:MeterFileOnly,DistrictCooling:Facility,daily;
+	Output:Meter:MeterFileOnly,Electricity:Facility,daily;
+
+	Output:Meter:MeterFileOnly,DistrictHeating:Facility,monthly;
+	Output:Meter:MeterFileOnly,DistrictCooling:Facility,monthly;
+	Output:Meter:MeterFileOnly,Electricity:Facility,monthly;
+
+	Output:Meter:MeterFileOnly,DistrictHeating:Facility,runperiod;
+	Output:Meter:MeterFileOnly,DistrictCooling:Facility,runperiod;
+	Output:Meter:MeterFileOnly,Electricity:Facility,runperiod;
+
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!!!!!!!!!!!!!!!!!!!!!!!! [[-- ZONE --]]
+
+Zone,
+	L0_Zone1,		!- user defined zone name 
+	0,			!- Direction of Relative North {deg}
+	0,			!- X Origin {m}
+	0,			!- Y Origin {m}
+	0,			!- Z Origin {m}
+	1,			!- Type
+	1,			!- Multiplier
+	autocalculate;		!- Ceiling Height {m}
+
+
+
+ZoneControl:Thermostat,
+	ThermostatL0_Zone1,
+	L0_Zone1,
+	HVACTemplate-Always 4,
+	ThermostatSetpoint:DualSetpoint,
+	All Zones;
+
+
+
+ZoneHVAC:EquipmentConnections,
+	L0_Zone1,
+	EquipmentL0_Zone1,
+	SupplyInletL0_Zone1,
+	,
+	ZoneAirNodeL0_Zone1,
+	ReturnOutletL0_Zone1;
+
+
+
+ZoneHVAC:EquipmentList,
+	EquipmentL0_Zone1,
+	ZoneHVAC:IdealLoadsAirSystem,
+	IdealLoadsAirSystemL0_Zone1,
+	1,
+	1;
+
+
+
+ZoneHVAC:IdealLoadsAirSystem,
+	IdealLoadsAirSystemL0_Zone1,
+	,
+	SupplyInletL0_Zone1,
+	,
+	50,
+	13,
+	0.008,
+	0.009,
+	NoLimit,
+	,
+	,
+	NoLimit,
+	,
+	,
+	,
+	,
+	None,
+	0.7,
+	None,
+	outdoorAirSpec,
+	,
+	None,
+	NoEconomizer,
+	None,
+	0.7,
+	0.65;
+
+
+
+
+People,
+	PeopleL0_Zone1,
+	L0_Zone1,
+	defaultPeopleOccupationSchedule,
+	Area/Person,
+	,,20.0,
+	0.3,
+	,
+	defaultPeopleActivitySchedule;
+
+
+
+
+ElectricEquipment,
+	ElectricEquipmentL0_Zone1,
+	L0_Zone1,
+	defaultElectricEquipmentSchedule,
+	Watts/Area,
+	,2.0,,
+	0.0,
+	0.3,
+	0.0;
+
+
+
+
+Lights,
+	LightsL0_Zone1,
+	L0_Zone1,
+	defaultLightSchedule,
+	Watts/Area,
+	,2.0,,
+	0.0,
+	0.42,
+	0.18,
+	1.0;
+
+
+
+
+Daylighting:Controls,
+	L0_Zone1,
+	1,
+	9.996204,-21.265263,0.8,
+	0.0,0.0,0.0,
+	1.0,
+	0.0,
+	500.0,
+	500.0,
+	1,
+	0.0,
+	1000.0,
+	0.0,
+	0.0,
+	0.0,
+	1.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_851366397,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone1,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	13.260765,-39.40357,0.0,
+	15.363657,-14.300222,0.0,
+	22.73845,-36.213974,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_231494418,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone1,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	15.363657,-14.300222,0.0,
+	13.260765,-39.40357,0.0,
+	13.538256,-14.914537,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_1633798609,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone1,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	13.538256,-14.914537,0.0,
+	3.189593,-9.477684,0.0,
+	10.841875,-6.9024067,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_1527310921,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone1,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	3.189593,-9.477684,0.0,
+	13.538256,-14.914537,0.0,
+	13.260765,-39.40357,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_642616656,
+	WALL,
+	wall facade,
+	L0_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	13.260765,-39.40357,3.0,
+	3.189593,-9.477684,3.0,
+	3.189593,-9.477684,0.0,
+	13.260765,-39.40357,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_762876629,
+	WALL,
+	wall facade,
+	L0_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	15.363657,-14.300222,3.0,
+	22.73845,-36.213974,3.0,
+	22.73845,-36.213974,0.0,
+	15.363657,-14.300222,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1190131013,
+	WALL,
+	wall facade,
+	L0_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	13.538256,-14.914537,3.0,
+	15.363657,-14.300222,3.0,
+	15.363657,-14.300222,0.0,
+	13.538256,-14.914537,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_869247333,
+	WALL,
+	wall facade,
+	L0_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	13.260765,-39.40357,3.0,
+	22.73845,-36.213974,3.0,
+	22.73845,-36.213974,0.0,
+	13.260765,-39.40357,0.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_108675190,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_869247333,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	13.987167,-39.159107,2.7700698,
+	22.012047,-36.458435,2.7700698,
+	22.012047,-36.458435,0.22993016,
+	13.987167,-39.159107,0.22993016;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1142818380,
+	WALL,
+	wall facade,
+	L0_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	10.841875,-6.9024067,3.0,
+	13.538256,-14.914537,3.0,
+	13.538256,-14.914537,0.0,
+	10.841875,-6.9024067,0.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_254773892,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_1142818380,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	11.048535,-7.516484,2.7700691,
+	13.331596,-14.30046,2.7700696,
+	13.331596,-14.30046,0.2299306,
+	11.048535,-7.516484,0.22993034;
+
+
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!!!!!!!!!!!!!!!!!!!!!!!! [[-- ZONE --]]
+
+Zone,
+	L0_Zone2,		!- user defined zone name 
+	0,			!- Direction of Relative North {deg}
+	0,			!- X Origin {m}
+	0,			!- Y Origin {m}
+	0,			!- Z Origin {m}
+	1,			!- Type
+	1,			!- Multiplier
+	autocalculate;		!- Ceiling Height {m}
+
+
+
+ZoneControl:Thermostat,
+	ThermostatL0_Zone2,
+	L0_Zone2,
+	HVACTemplate-Always 4,
+	ThermostatSetpoint:DualSetpoint,
+	All Zones;
+
+
+
+ZoneHVAC:EquipmentConnections,
+	L0_Zone2,
+	EquipmentL0_Zone2,
+	SupplyInletL0_Zone2,
+	,
+	ZoneAirNodeL0_Zone2,
+	ReturnOutletL0_Zone2;
+
+
+
+ZoneHVAC:EquipmentList,
+	EquipmentL0_Zone2,
+	ZoneHVAC:IdealLoadsAirSystem,
+	IdealLoadsAirSystemL0_Zone2,
+	1,
+	1;
+
+
+
+ZoneHVAC:IdealLoadsAirSystem,
+	IdealLoadsAirSystemL0_Zone2,
+	,
+	SupplyInletL0_Zone2,
+	,
+	50,
+	13,
+	0.008,
+	0.009,
+	NoLimit,
+	,
+	,
+	NoLimit,
+	,
+	,
+	,
+	,
+	None,
+	0.7,
+	None,
+	outdoorAirSpec,
+	,
+	None,
+	NoEconomizer,
+	None,
+	0.7,
+	0.65;
+
+
+
+
+People,
+	PeopleL0_Zone2,
+	L0_Zone2,
+	defaultPeopleOccupationSchedule,
+	Area/Person,
+	,,20.0,
+	0.3,
+	,
+	defaultPeopleActivitySchedule;
+
+
+
+
+ElectricEquipment,
+	ElectricEquipmentL0_Zone2,
+	L0_Zone2,
+	defaultElectricEquipmentSchedule,
+	Watts/Area,
+	,2.0,,
+	0.0,
+	0.3,
+	0.0;
+
+
+
+
+Lights,
+	LightsL0_Zone2,
+	L0_Zone2,
+	defaultLightSchedule,
+	Watts/Area,
+	,2.0,,
+	0.0,
+	0.42,
+	0.18,
+	1.0;
+
+
+
+
+Daylighting:Controls,
+	L0_Zone2,
+	1,
+	1.7559862,19.992008,0.8,
+	0.0,0.0,0.0,
+	1.0,
+	0.0,
+	500.0,
+	500.0,
+	1,
+	0.0,
+	1000.0,
+	0.0,
+	0.0,
+	0.0,
+	1.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_2049894373,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone2,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	3.189593,-9.477684,0.0,
+	2.1324666,6.093665,0.0,
+	-7.998862,23.768137,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_494578190,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone2,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	2.1324666,6.093665,0.0,
+	3.189593,-9.477684,0.0,
+	10.841875,-6.9024067,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_1613925440,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone2,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	2.1324666,6.093665,0.0,
+	10.841875,-6.9024067,0.0,
+	9.094299,8.436581,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_378924823,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone2,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	9.094299,8.436581,0.0,
+	10.841875,-6.9024067,0.0,
+	12.667277,-6.288091,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_1300486806,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone2,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	9.094299,8.436581,0.0,
+	12.667277,-6.288091,0.0,
+	13.284395,23.725502,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_193189276,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone2,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	9.094299,8.436581,0.0,
+	13.284395,23.725502,0.0,
+	6.9442587,14.825298,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_2084371115,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone2,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	-7.998862,23.768137,0.0,
+	-0.017574275,12.482383,0.0,
+	13.284395,23.725502,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_124596294,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone2,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	-0.017574275,12.482383,0.0,
+	-7.998862,23.768137,0.0,
+	2.1324666,6.093665,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_293357433,
+	FLOOR,
+	Concrete Slab - wooden flooring,
+	L0_Zone2,
+	Ground,
+	,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	13.284395,23.725502,0.0,
+	-0.017574275,12.482383,0.0,
+	6.9442587,14.825298,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1983406566,
+	WALL,
+	wall facade,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	3.189593,-9.477684,0.0,
+	-7.998862,23.768137,0.0,
+	3.189593,-9.477684,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1872986028,
+	WALL,
+	wall facade,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	0.0,-4.3314686E-15,3.0,
+	3.189593,-9.477684,3.0,
+	-7.998862,23.768137,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1460874870,
+	WALL,
+	wall facade,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	-7.998862,23.768137,3.0,
+	0.0,-4.3314686E-15,3.0,
+	-7.998862,23.768137,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_743403939,
+	WALL,
+	wall facade,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	10.841875,-6.9024067,3.0,
+	12.667277,-6.288091,3.0,
+	12.667277,-6.288091,0.0,
+	10.841875,-6.9024067,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_330144527,
+	WALL,
+	Brick Partition Wall - plastered,
+	L0_Zone2,
+	Zone,
+	L0_Zone1,
+	NoSun,
+	NoWind,
+	autocalculate,
+	4,
+	3.189593,-9.477684,3.0,
+	10.841875,-6.9024067,3.0,
+	10.841875,-6.9024067,0.0,
+	3.189593,-9.477684,0.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1788805088,
+	WALL,
+	wall facade,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	13.284395,23.725502,3.0,
+	-7.998862,23.768137,3.0,
+	-7.998862,23.768137,0.0,
+	13.284395,23.725502,0.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_1823539663,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_1788805088,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	11.653173,23.72877,2.7700696,
+	-6.3676395,23.76487,2.7700696,
+	-6.3676395,23.76487,0.22993034,
+	11.653173,23.72877,0.2299305;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1491989704,
+	WALL,
+	wall facade,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	6.9442587,14.825298,3.0,
+	9.094299,8.436581,3.0,
+	9.094299,8.436581,0.0,
+	6.9442587,14.825298,0.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_1851892756,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_1491989704,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	7.1090455,14.335646,2.7700698,
+	8.929513,8.926234,2.7700698,
+	8.929513,8.926234,0.22993007,
+	7.1090455,14.335646,0.22993028;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1281054121,
+	WALL,
+	wall facade,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	9.094299,8.436581,3.0,
+	2.1324666,6.093665,3.0,
+	2.1324666,6.093665,0.0,
+	9.094299,8.436581,0.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_5566825,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_1281054121,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	8.56072,8.257011,2.7700696,
+	2.666046,6.2732344,2.7700696,
+	2.666046,6.2732344,0.22993028,
+	8.56072,8.257011,0.22993028;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1219830954,
+	WALL,
+	wall facade,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	2.1324666,6.093665,3.0,
+	-0.017574275,12.482383,3.0,
+	-0.017574275,12.482383,0.0,
+	2.1324666,6.093665,0.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_1819949616,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_1219830954,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	1.96768,6.5833187,2.7700696,
+	0.14721236,11.992729,2.7700696,
+	0.14721239,11.992729,0.22993028,
+	1.96768,6.5833187,0.22993049;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1283611891,
+	WALL,
+	wall facade,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	-0.017574275,12.482383,3.0,
+	6.9442587,14.825298,3.0,
+	6.9442587,14.825298,0.0,
+	-0.017574275,12.482383,0.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_44334275,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_1283611891,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	0.516005,12.661952,2.7700694,
+	6.4106793,14.645729,2.7700694,
+	6.4106793,14.645729,0.22993064,
+	0.516005,12.661952,0.22993064;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_2096818063,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	0.0,-4.3314686E-15,3.0,
+	2.1324666,6.093665,3.0,
+	9.477684,3.189593,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_1014537571,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	2.1324666,6.093665,3.0,
+	0.0,-4.3314686E-15,3.0,
+	-7.998862,23.768137,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_312798617,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	9.477684,3.189593,3.0,
+	2.1324666,6.093665,3.0,
+	9.094299,8.436581,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_166388063,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	-7.998862,23.768137,3.0,
+	-0.017574275,12.482383,3.0,
+	2.1324666,6.093665,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_460466447,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	-0.017574275,12.482383,3.0,
+	-7.998862,23.768137,3.0,
+	13.284395,23.725502,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_1675994588,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	-0.017574275,12.482383,3.0,
+	13.284395,23.725502,3.0,
+	6.9442587,14.825298,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_2045526464,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	9.477684,3.189593,3.0,
+	13.284395,23.725502,3.0,
+	12.667277,-6.288091,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_97575625,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	13.284395,23.725502,3.0,
+	9.477684,3.189593,3.0,
+	9.094299,8.436581,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_1423506714,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	13.284395,23.725502,3.0,
+	9.094299,8.436581,3.0,
+	6.9442587,14.825298,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1909514618,
+	WALL,
+	wall facade,
+	L0_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	13.284395,23.725502,3.0,
+	12.667277,-6.288091,3.0,
+	12.667277,-6.288091,0.0,
+	13.284395,23.725502,0.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_1216563958,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_1909514618,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	13.237097,21.425156,2.7700696,
+	12.714576,-3.9877453,2.7700696,
+	12.714576,-3.9877453,0.2299304,
+	13.237097,21.425156,0.2299304;
+
+
+Shading:Zone:Detailed,
+	Face_SHADING_598639019,
+	Face_WINDOW_1216563958,
+	,
+	4,
+	13.237097,21.425156,2.7700696,
+	12.714576,-3.9877453,2.7700696,
+	14.714153,-4.028859,2.770069,
+	15.236674,21.38404,2.770069;
+
+
+Shading:Zone:Detailed,
+	Face_SHADING_365106138,
+	Face_WINDOW_1216563958,
+	,
+	4,
+	14.714153,-4.028859,2.770069,
+	12.714576,-3.9877453,2.7700696,
+	12.714576,-3.9877453,0.2299304,
+	14.714153,-4.028859,0.22992969;
+
+
+Shading:Zone:Detailed,
+	Face_SHADING_978081887,
+	Face_WINDOW_1216563958,
+	,
+	4,
+	12.714576,-3.9877453,0.2299304,
+	13.237097,21.425156,0.2299304,
+	15.236674,21.38404,0.22992969,
+	14.714153,-4.028859,0.22992969;
+
+
+Shading:Zone:Detailed,
+	Face_SHADING_1782440671,
+	Face_WINDOW_1216563958,
+	,
+	4,
+	13.237097,21.425156,2.7700696,
+	15.236674,21.38404,2.770069,
+	15.236674,21.38404,0.22992969,
+	13.237097,21.425156,0.2299304;
+
+
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!!!!!!!!!!!!!!!!!!!!!!!! [[-- ZONE --]]
+
+Zone,
+	L1_Zone1,		!- user defined zone name 
+	0,			!- Direction of Relative North {deg}
+	0,			!- X Origin {m}
+	0,			!- Y Origin {m}
+	0,			!- Z Origin {m}
+	1,			!- Type
+	1,			!- Multiplier
+	autocalculate;		!- Ceiling Height {m}
+
+
+
+ZoneControl:Thermostat,
+	ThermostatL1_Zone1,
+	L1_Zone1,
+	HVACTemplate-Always 4,
+	ThermostatSetpoint:DualSetpoint,
+	All Zones;
+
+
+
+ZoneHVAC:EquipmentConnections,
+	L1_Zone1,
+	EquipmentL1_Zone1,
+	SupplyInletL1_Zone1,
+	,
+	ZoneAirNodeL1_Zone1,
+	ReturnOutletL1_Zone1;
+
+
+
+ZoneHVAC:EquipmentList,
+	EquipmentL1_Zone1,
+	ZoneHVAC:IdealLoadsAirSystem,
+	IdealLoadsAirSystemL1_Zone1,
+	1,
+	1;
+
+
+
+ZoneHVAC:IdealLoadsAirSystem,
+	IdealLoadsAirSystemL1_Zone1,
+	,
+	SupplyInletL1_Zone1,
+	,
+	50,
+	13,
+	0.008,
+	0.009,
+	NoLimit,
+	,
+	,
+	NoLimit,
+	,
+	,
+	,
+	,
+	None,
+	0.7,
+	None,
+	outdoorAirSpec,
+	,
+	None,
+	NoEconomizer,
+	None,
+	0.7,
+	0.65;
+
+
+
+
+People,
+	PeopleL1_Zone1,
+	L1_Zone1,
+	defaultPeopleOccupationSchedule,
+	Area/Person,
+	,,20.0,
+	0.3,
+	,
+	defaultPeopleActivitySchedule;
+
+
+
+
+ElectricEquipment,
+	ElectricEquipmentL1_Zone1,
+	L1_Zone1,
+	defaultElectricEquipmentSchedule,
+	Watts/Area,
+	,2.0,,
+	0.0,
+	0.3,
+	0.0;
+
+
+
+
+Lights,
+	LightsL1_Zone1,
+	L1_Zone1,
+	defaultLightSchedule,
+	Watts/Area,
+	,2.0,,
+	0.0,
+	0.42,
+	0.18,
+	1.0;
+
+
+
+
+Daylighting:Controls,
+	L1_Zone1,
+	1,
+	12.964021,-22.845829,3.8,
+	0.0,0.0,0.0,
+	1.0,
+	0.0,
+	500.0,
+	500.0,
+	1,
+	0.0,
+	1000.0,
+	0.0,
+	0.0,
+	0.0,
+	1.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_83481847,
+	WALL,
+	wall facade,
+	L1_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	13.260765,-39.40357,6.0,
+	3.189593,-9.477684,6.0,
+	3.189593,-9.477684,3.0,
+	13.260765,-39.40357,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_772581038,
+	FLOOR,
+	Medium Floor,
+	L1_Zone1,
+	Zone,
+	L0_Zone1,
+	NoSun,
+	NoWind,
+	autocalculate,
+	4,
+	13.260765,-39.40357,3.0,
+	3.189593,-9.477684,3.0,
+	12.667277,-6.288091,3.0,
+	22.73845,-36.213974,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1083375904,
+	WALL,
+	wall facade,
+	L1_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	22.73845,-36.213974,6.0,
+	13.260765,-39.40357,6.0,
+	13.260765,-39.40357,3.0,
+	22.73845,-36.213974,3.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_1932459262,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_1083375904,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	22.012047,-36.458435,5.77007,
+	13.987167,-39.159107,5.77007,
+	13.987167,-39.159107,3.2299304,
+	22.012047,-36.458435,3.2299304;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_300139206,
+	WALL,
+	wall facade,
+	L1_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	12.667277,-6.288091,6.0,
+	22.73845,-36.213974,6.0,
+	22.73845,-36.213974,3.0,
+	12.667277,-6.288091,3.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_548439,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_300139206,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	13.439168,-8.581716,5.7700696,
+	21.96656,-33.92035,5.7700696,
+	21.96656,-33.92035,3.2299304,
+	13.439168,-8.581716,3.2299304;
+
+
+Shading:Zone:Detailed,
+	Face_SHADING_627679685,
+	Face_WINDOW_548439,
+	,
+	4,
+	21.96656,-33.92035,3.2299304,
+	13.439168,-8.581716,3.2299304,
+	15.334704,-7.943797,3.2299309,
+	23.862097,-33.282433,3.2299309;
+
+
+Shading:Zone:Detailed,
+	Face_SHADING_972791731,
+	Face_WINDOW_548439,
+	,
+	4,
+	13.439168,-8.581716,5.7700696,
+	15.334704,-7.943797,5.77007,
+	15.334704,-7.943797,3.2299309,
+	13.439168,-8.581716,3.2299304;
+
+
+Shading:Zone:Detailed,
+	Face_SHADING_917618306,
+	Face_WINDOW_548439,
+	,
+	4,
+	13.439168,-8.581716,5.7700696,
+	21.96656,-33.92035,5.7700696,
+	23.862097,-33.282433,5.77007,
+	15.334704,-7.943797,5.77007;
+
+
+Shading:Zone:Detailed,
+	Face_SHADING_1330799835,
+	Face_WINDOW_548439,
+	,
+	4,
+	23.862097,-33.282433,5.77007,
+	21.96656,-33.92035,5.7700696,
+	21.96656,-33.92035,3.2299304,
+	23.862097,-33.282433,3.2299309;
+
+
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!!!!!!!!!!!!!!!!!!!!!!!! [[-- ZONE --]]
+
+Zone,
+	L1_Zone2,		!- user defined zone name 
+	0,			!- Direction of Relative North {deg}
+	0,			!- X Origin {m}
+	0,			!- Y Origin {m}
+	0,			!- Z Origin {m}
+	1,			!- Type
+	1,			!- Multiplier
+	autocalculate;		!- Ceiling Height {m}
+
+
+
+ZoneControl:Thermostat,
+	ThermostatL1_Zone2,
+	L1_Zone2,
+	HVACTemplate-Always 4,
+	ThermostatSetpoint:DualSetpoint,
+	All Zones;
+
+
+
+ZoneHVAC:EquipmentConnections,
+	L1_Zone2,
+	EquipmentL1_Zone2,
+	SupplyInletL1_Zone2,
+	,
+	ZoneAirNodeL1_Zone2,
+	ReturnOutletL1_Zone2;
+
+
+
+ZoneHVAC:EquipmentList,
+	EquipmentL1_Zone2,
+	ZoneHVAC:IdealLoadsAirSystem,
+	IdealLoadsAirSystemL1_Zone2,
+	1,
+	1;
+
+
+
+ZoneHVAC:IdealLoadsAirSystem,
+	IdealLoadsAirSystemL1_Zone2,
+	,
+	SupplyInletL1_Zone2,
+	,
+	50,
+	13,
+	0.008,
+	0.009,
+	NoLimit,
+	,
+	,
+	NoLimit,
+	,
+	,
+	,
+	,
+	None,
+	0.7,
+	None,
+	outdoorAirSpec,
+	,
+	None,
+	NoEconomizer,
+	None,
+	0.7,
+	0.65;
+
+
+
+
+People,
+	PeopleL1_Zone2,
+	L1_Zone2,
+	defaultPeopleOccupationSchedule,
+	Area/Person,
+	,,20.0,
+	0.3,
+	,
+	defaultPeopleActivitySchedule;
+
+
+
+
+ElectricEquipment,
+	ElectricEquipmentL1_Zone2,
+	L1_Zone2,
+	defaultElectricEquipmentSchedule,
+	Watts/Area,
+	,2.0,,
+	0.0,
+	0.3,
+	0.0;
+
+
+
+
+Lights,
+	LightsL1_Zone2,
+	L1_Zone2,
+	defaultLightSchedule,
+	Watts/Area,
+	,2.0,,
+	0.0,
+	0.42,
+	0.18,
+	1.0;
+
+
+
+
+Daylighting:Controls,
+	L1_Zone2,
+	1,
+	6.3336387,-3.1440456,3.8,
+	0.0,0.0,0.0,
+	1.0,
+	0.0,
+	500.0,
+	500.0,
+	1,
+	0.0,
+	1000.0,
+	0.0,
+	0.0,
+	0.0,
+	1.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_710643340,
+	WALL,
+	wall facade,
+	L1_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	0.0,-1.010676E-14,6.0,
+	3.189593,-9.477684,6.0,
+	3.189593,-9.477684,3.0,
+	0.0,-1.010676E-14,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1626054413,
+	WALL,
+	Brick Partition Wall - plastered,
+	L1_Zone2,
+	Zone,
+	L1_Zone1,
+	NoSun,
+	NoWind,
+	autocalculate,
+	4,
+	3.189593,-9.477684,6.0,
+	12.667277,-6.288091,6.0,
+	12.667277,-6.288091,3.0,
+	3.189593,-9.477684,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_219627569,
+	FLOOR,
+	Medium Floor,
+	L1_Zone2,
+	Zone,
+	L0_Zone2,
+	NoSun,
+	NoWind,
+	autocalculate,
+	4,
+	12.667277,-6.288091,3.0,
+	9.477684,3.189593,3.0,
+	0.0,-1.010676E-14,3.0,
+	3.189593,-9.477684,3.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1903646637,
+	WALL,
+	wall facade,
+	L1_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	12.667277,-6.288091,6.0,
+	9.477684,3.189593,6.0,
+	9.477684,3.189593,3.0,
+	12.667277,-6.288091,3.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_1377655053,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_1903646637,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	12.422816,-5.5616884,5.7700696,
+	9.722146,2.46319,5.7700696,
+	9.722146,2.46319,3.2299304,
+	12.422816,-5.5616884,3.2299306;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_79793817,
+	WALL,
+	wall facade,
+	L1_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	9.477684,3.189593,6.0,
+	0.0,-1.010676E-14,6.0,
+	0.0,-1.010676E-14,3.0,
+	9.477684,3.189593,3.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_1064886591,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_79793817,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	8.751282,2.9451313,5.770069,
+	0.72640276,0.24446166,5.770069,
+	0.72640276,0.24446166,3.2299304,
+	8.751282,2.9451313,3.2299304;
+
+
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!!!!!!!!!!!!!!!!!!!!!!!! [[-- ZONE --]]
+
+Zone,
+	L2_Zone1,		!- user defined zone name 
+	0,			!- Direction of Relative North {deg}
+	0,			!- X Origin {m}
+	0,			!- Y Origin {m}
+	0,			!- Z Origin {m}
+	1,			!- Type
+	1,			!- Multiplier
+	autocalculate;		!- Ceiling Height {m}
+
+
+
+ZoneControl:Thermostat,
+	ThermostatL2_Zone1,
+	L2_Zone1,
+	HVACTemplate-Always 4,
+	ThermostatSetpoint:DualSetpoint,
+	All Zones;
+
+
+
+ZoneHVAC:EquipmentConnections,
+	L2_Zone1,
+	EquipmentL2_Zone1,
+	SupplyInletL2_Zone1,
+	,
+	ZoneAirNodeL2_Zone1,
+	ReturnOutletL2_Zone1;
+
+
+
+ZoneHVAC:EquipmentList,
+	EquipmentL2_Zone1,
+	ZoneHVAC:IdealLoadsAirSystem,
+	IdealLoadsAirSystemL2_Zone1,
+	1,
+	1;
+
+
+
+ZoneHVAC:IdealLoadsAirSystem,
+	IdealLoadsAirSystemL2_Zone1,
+	,
+	SupplyInletL2_Zone1,
+	,
+	50,
+	13,
+	0.008,
+	0.009,
+	NoLimit,
+	,
+	,
+	NoLimit,
+	,
+	,
+	,
+	,
+	None,
+	0.7,
+	None,
+	outdoorAirSpec,
+	,
+	None,
+	NoEconomizer,
+	None,
+	0.7,
+	0.65;
+
+
+
+
+People,
+	PeopleL2_Zone1,
+	L2_Zone1,
+	defaultPeopleOccupationSchedule,
+	Area/Person,
+	,,20.0,
+	0.3,
+	,
+	defaultPeopleActivitySchedule;
+
+
+
+
+ElectricEquipment,
+	ElectricEquipmentL2_Zone1,
+	L2_Zone1,
+	defaultElectricEquipmentSchedule,
+	Watts/Area,
+	,2.0,,
+	0.0,
+	0.3,
+	0.0;
+
+
+
+
+Lights,
+	LightsL2_Zone1,
+	L2_Zone1,
+	defaultLightSchedule,
+	Watts/Area,
+	,2.0,,
+	0.0,
+	0.42,
+	0.18,
+	1.0;
+
+
+
+
+Daylighting:Controls,
+	L2_Zone1,
+	1,
+	12.964022,-22.845829,6.8,
+	0.0,0.0,0.0,
+	1.0,
+	0.0,
+	500.0,
+	500.0,
+	1,
+	0.0,
+	1000.0,
+	0.0,
+	0.0,
+	0.0,
+	1.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_420220839,
+	WALL,
+	wall facade,
+	L2_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	3.189593,-9.477684,9.0,
+	13.260765,-39.40357,9.0,
+	3.189593,-9.477684,6.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1725409737,
+	WALL,
+	wall facade,
+	L2_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	13.260765,-39.40357,6.0,
+	3.189593,-9.477684,6.0,
+	13.260765,-39.40357,9.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1489764318,
+	WALL,
+	wall facade,
+	L2_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	13.260765,-39.40357,9.0,
+	14.2627125,-42.38079,9.0,
+	13.260765,-39.40357,6.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_957052253,
+	WALL,
+	wall facade,
+	L2_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	14.2627125,-42.38079,6.0,
+	13.260765,-39.40357,6.0,
+	14.2627125,-42.38079,9.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_524700141,
+	WALL,
+	wall facade,
+	L2_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	13.260765,-39.40357,6.0,
+	14.2627125,-42.38079,6.0,
+	23.740396,-39.191196,6.0,
+	22.73845,-36.213974,6.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1067415205,
+	WALL,
+	wall facade,
+	L2_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	22.73845,-36.213974,9.0,
+	12.667277,-6.288091,9.0,
+	12.667277,-6.288091,6.0,
+	22.73845,-36.213974,6.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_2116447044,
+	WALL,
+	wall facade,
+	L2_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	13.260765,-39.40357,9.0,
+	20.954672,-36.81428,11.949643,
+	22.73845,-36.213974,9.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_206339600,
+	FLOOR,
+	Medium Floor,
+	L2_Zone1,
+	Zone,
+	L1_Zone1,
+	NoSun,
+	NoWind,
+	autocalculate,
+	4,
+	13.260765,-39.40357,6.0,
+	22.73845,-36.213974,6.0,
+	12.667277,-6.288091,6.0,
+	3.189593,-9.477684,6.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1911050942,
+	WALL,
+	wall facade,
+	L2_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	14.2627125,-42.38079,9.0,
+	23.740396,-39.191196,9.0,
+	23.740396,-39.191196,6.0,
+	14.2627125,-42.38079,6.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_1267757662,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_1911050942,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	14.989114,-42.136326,8.770069,
+	23.013992,-39.435658,8.770069,
+	23.013992,-39.435658,6.2299304,
+	14.989114,-42.136326,6.2299304;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_2017763347,
+	WALL,
+	wall facade,
+	L2_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	23.740396,-39.191196,9.0,
+	22.73845,-36.213974,9.0,
+	22.73845,-36.213974,6.0,
+	23.740396,-39.191196,6.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_1634303252,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_2017763347,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	23.663603,-38.963013,8.770069,
+	22.81524,-36.44216,8.770069,
+	22.81524,-36.44216,6.2299304,
+	23.663603,-38.963013,6.2299304;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_1418911234,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L2_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	10.8835,-6.8883986,11.949643,
+	20.954672,-36.81428,11.949643,
+	13.260765,-39.40357,9.0,
+	3.189593,-9.477684,9.0;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_1982693550,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L2_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	20.954672,-36.81428,11.949643,
+	10.8835,-6.8883986,11.949643,
+	12.667277,-6.288091,9.0,
+	22.73845,-36.213974,9.0;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_626744351,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L2_Zone1,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	13.260765,-39.40357,9.0,
+	22.73845,-36.213974,9.0,
+	23.740396,-39.191196,9.0,
+	14.2627125,-42.38079,9.0;
+
+
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!!!!!!!!!!!!!!!!!!!!!!!! [[-- ZONE --]]
+
+Zone,
+	L2_Zone2,		!- user defined zone name 
+	0,			!- Direction of Relative North {deg}
+	0,			!- X Origin {m}
+	0,			!- Y Origin {m}
+	0,			!- Z Origin {m}
+	1,			!- Type
+	1,			!- Multiplier
+	autocalculate;		!- Ceiling Height {m}
+
+
+
+ZoneControl:Thermostat,
+	ThermostatL2_Zone2,
+	L2_Zone2,
+	HVACTemplate-Always 4,
+	ThermostatSetpoint:DualSetpoint,
+	All Zones;
+
+
+
+ZoneHVAC:EquipmentConnections,
+	L2_Zone2,
+	EquipmentL2_Zone2,
+	SupplyInletL2_Zone2,
+	,
+	ZoneAirNodeL2_Zone2,
+	ReturnOutletL2_Zone2;
+
+
+
+ZoneHVAC:EquipmentList,
+	EquipmentL2_Zone2,
+	ZoneHVAC:IdealLoadsAirSystem,
+	IdealLoadsAirSystemL2_Zone2,
+	1,
+	1;
+
+
+
+ZoneHVAC:IdealLoadsAirSystem,
+	IdealLoadsAirSystemL2_Zone2,
+	,
+	SupplyInletL2_Zone2,
+	,
+	50,
+	13,
+	0.008,
+	0.009,
+	NoLimit,
+	,
+	,
+	NoLimit,
+	,
+	,
+	,
+	,
+	None,
+	0.7,
+	None,
+	outdoorAirSpec,
+	,
+	None,
+	NoEconomizer,
+	None,
+	0.7,
+	0.65;
+
+
+
+
+People,
+	PeopleL2_Zone2,
+	L2_Zone2,
+	defaultPeopleOccupationSchedule,
+	Area/Person,
+	,,20.0,
+	0.3,
+	,
+	defaultPeopleActivitySchedule;
+
+
+
+
+ElectricEquipment,
+	ElectricEquipmentL2_Zone2,
+	L2_Zone2,
+	defaultElectricEquipmentSchedule,
+	Watts/Area,
+	,2.0,,
+	0.0,
+	0.3,
+	0.0;
+
+
+
+
+Lights,
+	LightsL2_Zone2,
+	L2_Zone2,
+	defaultLightSchedule,
+	Watts/Area,
+	,2.0,,
+	0.0,
+	0.42,
+	0.18,
+	1.0;
+
+
+
+
+Daylighting:Controls,
+	L2_Zone2,
+	1,
+	6.3336387,-3.1440456,6.8,
+	0.0,0.0,0.0,
+	1.0,
+	0.0,
+	500.0,
+	500.0,
+	1,
+	0.0,
+	1000.0,
+	0.0,
+	0.0,
+	0.0,
+	1.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_285018722,
+	WALL,
+	wall facade,
+	L2_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	0.0,-1.010676E-14,9.0,
+	3.189593,-9.477684,9.0,
+	3.189593,-9.477684,6.0,
+	0.0,-1.010676E-14,6.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1421127844,
+	WALL,
+	wall facade,
+	L2_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	3,
+	7.693907,2.5892856,11.949643,
+	0.0,-1.010676E-14,9.0,
+	9.477684,3.189593,9.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_582552174,
+	WALL,
+	Brick Partition Wall - plastered,
+	L2_Zone2,
+	Zone,
+	L2_Zone1,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	3.189593,-9.477684,9.0,
+	12.667277,-6.288091,6.0,
+	3.189593,-9.477684,6.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_576441745,
+	WALL,
+	Brick Partition Wall - plastered,
+	L2_Zone2,
+	Zone,
+	L2_Zone1,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	3.189593,-9.477684,9.0,
+	12.667277,-6.288091,9.0,
+	12.667277,-6.288091,6.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_957676598,
+	WALL,
+	Brick Partition Wall - plastered,
+	L2_Zone2,
+	Zone,
+	L2_Zone1,
+	NoSun,
+	NoWind,
+	autocalculate,
+	3,
+	3.189593,-9.477684,9.0,
+	10.8835,-6.8883986,11.949643,
+	12.667277,-6.288091,9.0;
+
+
+BuildingSurface:Detailed,
+	Face_FLOOR_280648321,
+	FLOOR,
+	Medium Floor,
+	L2_Zone2,
+	Zone,
+	L1_Zone2,
+	NoSun,
+	NoWind,
+	autocalculate,
+	4,
+	12.667277,-6.288091,6.0,
+	9.477684,3.189593,6.0,
+	0.0,-1.010676E-14,6.0,
+	3.189593,-9.477684,6.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_982242235,
+	WALL,
+	wall facade,
+	L2_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	9.477684,3.189593,9.0,
+	0.0,-1.010676E-14,9.0,
+	0.0,-1.010676E-14,6.0,
+	9.477684,3.189593,6.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_838449156,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_982242235,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	8.751282,2.9451313,8.770069,
+	0.72640276,0.24446166,8.770069,
+	0.72640276,0.24446166,6.2299304,
+	8.751282,2.9451313,6.2299304;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_27273278,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L2_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	7.693907,2.5892856,11.949643,
+	10.8835,-6.8883986,11.949643,
+	3.189593,-9.477684,9.0,
+	0.0,-1.010676E-14,9.0;
+
+
+BuildingSurface:Detailed,
+	Face_ROOF_967966535,
+	ROOF,
+	Medium Roof/Ceiling Insulated,
+	L2_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	10.8835,-6.8883986,11.949643,
+	7.693907,2.5892856,11.949643,
+	9.477684,3.189593,9.0,
+	12.667277,-6.288091,9.0;
+
+
+BuildingSurface:Detailed,
+	Face_WALL_1424927720,
+	WALL,
+	wall facade,
+	L2_Zone2,
+	Outdoors,
+	,
+	SunExposed,
+	WindExposed,
+	autocalculate,
+	4,
+	9.477684,3.189593,9.0,
+	12.667277,-6.288091,9.0,
+	12.667277,-6.288091,6.0,
+	9.477684,3.189593,6.0;
+
+
+FenestrationSurface:Detailed,
+	Face_WINDOW_22558696,
+	WINDOW,
+	Trp Clr 3mm/13mm Arg,
+	Face_WALL_1424927720,
+	,
+	autocalculate,
+	,
+	,
+	1.0,
+	4,
+	9.722146,2.46319,8.770069,
+	12.422816,-5.5616884,8.770069,
+	12.422816,-5.5616884,6.2299304,
+	9.722146,2.4631903,6.2299304;
+
+
+Shading:Zone:Detailed,
+	Face_SHADING_1186881800,
+	Face_WINDOW_22558696,
+	,
+	4,
+	9.722146,2.46319,8.770069,
+	12.422816,-5.5616884,8.770069,
+	14.318353,-4.92377,8.770069,
+	11.617682,3.1011088,8.770069;
+
+
+Shading:Zone:Detailed,
+	Face_SHADING_2094299264,
+	Face_WINDOW_22558696,
+	,
+	4,
+	14.318353,-4.92377,8.770069,
+	12.422816,-5.5616884,8.770069,
+	12.422816,-5.5616884,6.2299304,
+	14.318353,-4.92377,6.2299304;
+
+
+Shading:Zone:Detailed,
+	Face_SHADING_1630755718,
+	Face_WINDOW_22558696,
+	,
+	4,
+	12.422816,-5.5616884,6.2299304,
+	9.722146,2.4631903,6.2299304,
+	11.617682,3.101109,6.2299304,
+	14.318353,-4.92377,6.2299304;
+
+
+Shading:Zone:Detailed,
+	Face_SHADING_1925049412,
+	Face_WINDOW_22558696,
+	,
+	4,
+	9.722146,2.46319,8.770069,
+	11.617682,3.1011088,8.770069,
+	11.617682,3.101109,6.2299304,
+	9.722146,2.4631903,6.2299304;
+
+
+Shading:Site:Detailed,
+	Face_WALL_316841782,		!- Name
+	Off,
+	4,
+	-25.395426,41.021416,84.03271,
+	-32.37431,61.525017,84.03271,
+	-32.37431,61.525017,0.0,
+	-25.395426,41.021416,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1547869161,		!- Name
+	Off,
+	4,
+	-25.395426,41.021416,84.03271,
+	11.513394,53.584232,84.03271,
+	11.513394,53.584232,0.0,
+	-25.395426,41.021416,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_420089169,		!- Name
+	Off,
+	4,
+	4.53451,74.08788,84.03271,
+	11.513394,53.584232,84.03271,
+	11.513394,53.584232,0.0,
+	4.53451,74.08788,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1659915694,		!- Name
+	Off,
+	4,
+	-32.37431,61.525017,84.03271,
+	4.53451,74.08788,84.03271,
+	4.53451,74.08788,0.0,
+	-32.37431,61.525017,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_243010881,		!- Name
+	Off,
+	4,
+	-33.87921,28.242876,16.836658,
+	-50.121353,76.69139,16.836658,
+	-50.121353,76.69139,0.0,
+	-33.87921,28.242876,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1917464020,		!- Name
+	Off,
+	4,
+	-99.05578,60.286118,16.836658,
+	-82.81353,11.83755,16.836658,
+	-82.81353,11.83755,0.0,
+	-99.05578,60.286118,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1678177258,		!- Name
+	Off,
+	4,
+	-50.121353,76.69139,16.836658,
+	-99.05578,60.286118,16.836658,
+	-99.05578,60.286118,0.0,
+	-50.121353,76.69139,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_74955508,		!- Name
+	Off,
+	4,
+	-82.81353,11.83755,16.836658,
+	-33.87921,28.242876,16.836658,
+	-33.87921,28.242876,0.0,
+	-82.81353,11.83755,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1351805814,		!- Name
+	Off,
+	4,
+	31.411861,-0.41540885,12.664892,
+	49.142284,-52.755806,12.664892,
+	49.142284,-52.755806,0.0,
+	31.411861,-0.41540885,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1570814285,		!- Name
+	Off,
+	4,
+	43.751476,3.7646623,12.664892,
+	31.411861,-0.41540885,12.664892,
+	31.411861,-0.41540885,0.0,
+	43.751476,3.7646623,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1659215424,		!- Name
+	Off,
+	4,
+	49.142284,-52.755806,12.664892,
+	61.4819,-48.575737,12.664892,
+	61.4819,-48.575737,0.0,
+	49.142284,-52.755806,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1358474873,		!- Name
+	Off,
+	4,
+	83.58371,12.2342005,24.848045,
+	76.876045,32.186886,24.848045,
+	76.876045,32.186886,0.0,
+	83.58371,12.2342005,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1988539254,		!- Name
+	Off,
+	4,
+	40.753174,19.506645,24.848045,
+	47.298897,0.03608339,24.848045,
+	47.298897,0.03608339,0.0,
+	40.753174,19.506645,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_91243717,		!- Name
+	Off,
+	4,
+	76.876045,32.186886,24.848045,
+	40.753174,19.506645,24.848045,
+	40.753174,19.506645,0.0,
+	76.876045,32.186886,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_229827661,		!- Name
+	Off,
+	4,
+	47.298897,0.03608339,24.848045,
+	83.58371,12.2342005,24.848045,
+	83.58371,12.2342005,0.0,
+	47.298897,0.03608339,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1537901121,		!- Name
+	Off,
+	4,
+	43.1126,12.41454,3.9924228,
+	31.690733,8.5151,3.9924228,
+	31.690733,8.5151,0.0,
+	43.1126,12.41454,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_390965355,		!- Name
+	Off,
+	4,
+	29.239637,15.829788,3.9924228,
+	40.753174,19.506645,3.9924228,
+	40.753174,19.506645,0.0,
+	29.239637,15.829788,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1802245312,		!- Name
+	Off,
+	4,
+	31.690733,8.5151,3.9924228,
+	29.239637,15.829788,3.9924228,
+	29.239637,15.829788,0.0,
+	31.690733,8.5151,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_80117849,		!- Name
+	Off,
+	4,
+	40.753174,19.506645,3.9924228,
+	43.1126,12.41454,3.9924228,
+	43.1126,12.41454,0.0,
+	40.753174,19.506645,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_68441474,		!- Name
+	Off,
+	4,
+	53.410698,-176.87279,30.964426,
+	69.317986,-169.62743,30.964426,
+	69.317986,-169.62743,0.0,
+	53.410698,-176.87279,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1392102373,		!- Name
+	Off,
+	4,
+	29.33486,-124.014,30.964426,
+	53.410698,-176.87279,30.964426,
+	53.410698,-176.87279,0.0,
+	29.33486,-124.014,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_230248946,		!- Name
+	Off,
+	4,
+	45.24215,-116.76864,30.964426,
+	29.33486,-124.014,30.964426,
+	29.33486,-124.014,0.0,
+	45.24215,-116.76864,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_28503528,		!- Name
+	Off,
+	4,
+	69.317986,-169.62743,30.964426,
+	45.24215,-116.76864,30.964426,
+	45.24215,-116.76864,0.0,
+	69.317986,-169.62743,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_169941815,		!- Name
+	Off,
+	4,
+	31.794949,-140.0533,15.953589,
+	19.013462,-111.732796,15.953589,
+	19.013462,-111.732796,0.0,
+	31.794949,-140.0533,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_58834195,		!- Name
+	Off,
+	4,
+	16.963144,-146.7473,15.953589,
+	31.794949,-140.0533,15.953589,
+	31.794949,-140.0533,0.0,
+	16.963144,-146.7473,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_983837745,		!- Name
+	Off,
+	4,
+	4.1813364,-118.42675,15.953589,
+	16.963144,-146.7473,15.953589,
+	16.963144,-146.7473,0.0,
+	4.1813364,-118.42675,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1884381962,		!- Name
+	Off,
+	4,
+	19.013462,-111.732796,15.953589,
+	4.1813364,-118.42675,15.953589,
+	4.1813364,-118.42675,0.0,
+	19.013462,-111.732796,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1866293025,		!- Name
+	Off,
+	4,
+	-16.265762,-53.20526,17.096077,
+	-12.383851,-51.899624,17.096077,
+	-12.383851,-51.899624,0.0,
+	-16.265762,-53.20526,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_640723093,		!- Name
+	Off,
+	4,
+	-22.29513,-49.69089,17.096077,
+	-17.954649,-48.220352,17.096077,
+	-17.954649,-48.220352,0.0,
+	-22.29513,-49.69089,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1150017993,		!- Name
+	Off,
+	4,
+	-12.383851,-51.899624,17.096077,
+	-14.080672,-46.89107,17.096077,
+	-14.080672,-46.89107,0.0,
+	-12.383851,-51.899624,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_999585351,		!- Name
+	Off,
+	4,
+	-8.338648,-44.94572,17.096077,
+	-22.062468,-4.1468406,17.096077,
+	-22.062468,-4.1468406,0.0,
+	-8.338648,-44.94572,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_266423776,		!- Name
+	Off,
+	4,
+	-17.954649,-48.220352,17.096077,
+	-16.265762,-53.20526,17.096077,
+	-16.265762,-53.20526,0.0,
+	-17.954649,-48.220352,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_280999237,		!- Name
+	Off,
+	4,
+	-14.080672,-46.89107,17.096077,
+	-8.338648,-44.94572,17.096077,
+	-8.338648,-44.94572,0.0,
+	-14.080672,-46.89107,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_437636506,		!- Name
+	Off,
+	4,
+	-35.84181,-8.803698,17.096077,
+	-22.29513,-49.69089,17.096077,
+	-22.29513,-49.69089,0.0,
+	-35.84181,-8.803698,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_225265367,		!- Name
+	Off,
+	4,
+	-22.062468,-4.1468406,17.096077,
+	-23.382435,-4.5929394,17.096077,
+	-23.382435,-4.5929394,0.0,
+	-22.062468,-4.1468406,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_21353508,		!- Name
+	Off,
+	4,
+	-35.84181,-8.803735,21.934944,
+	-23.382435,-4.5929394,21.934944,
+	-23.382435,-4.5929394,0.0,
+	-35.84181,-8.803735,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_258639907,		!- Name
+	Off,
+	4,
+	-39.702507,2.6195388,21.934944,
+	-35.84181,-8.803735,21.934944,
+	-35.84181,-8.803735,0.0,
+	-39.702507,2.6195388,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_454015421,		!- Name
+	Off,
+	4,
+	-23.382435,-4.5929394,21.934944,
+	-27.24321,6.8302855,21.934944,
+	-27.24321,6.8302855,0.0,
+	-23.382435,-4.5929394,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_627782956,		!- Name
+	Off,
+	4,
+	-27.24321,6.8302855,21.934944,
+	-39.702507,2.6195388,21.934944,
+	-39.702507,2.6195388,0.0,
+	-27.24321,6.8302855,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_560983781,		!- Name
+	Off,
+	4,
+	6.2898726,-45.618618,31.47838,
+	-71.50231,-71.7842,31.47838,
+	-71.50231,-71.7842,0.0,
+	6.2898726,-45.618618,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1001196937,		!- Name
+	Off,
+	4,
+	11.858742,-62.175117,31.47838,
+	6.2898726,-45.618618,31.47838,
+	6.2898726,-45.618618,0.0,
+	11.858742,-62.175117,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1582545914,		!- Name
+	Off,
+	4,
+	-65.93345,-88.340706,31.47838,
+	11.858742,-62.175117,31.47838,
+	11.858742,-62.175117,0.0,
+	-65.93345,-88.340706,0.0;
+
+
+Shading:Site:Detailed,
+	Face_WALL_1264208503,		!- Name
+	Off,
+	4,
+	-71.50231,-71.7842,31.47838,
+	-65.93345,-88.340706,31.47838,
+	-65.93345,-88.340706,0.0,
+	-71.50231,-71.7842,0.0;
+
+
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!- general single occurence objects 
+
+ThermostatSetpoint:DualSetpoint,
+	All Zones,
+	Yearly Constant Heating,
+	Yearly Constant Cooling;
+
+
+Schedule:Compact,
+	Yearly Constant Heating,
+	Temperature,
+	Through: 12/31,
+	For: Weekdays,
+	Until: 24:0,19.0,
+	For: Weekends Holidays AllOtherDays,
+	Until: 24:0,19.0;
+
+
+Schedule:Compact,
+	Yearly Constant Cooling,
+	Temperature,
+	Through: 12/31,
+	For: Weekdays,
+	Until: 24:0,28.0,
+	For: Weekends Holidays AllOtherDays,
+	Until: 24:0,28.0;
+
+
+DesignSpecification:OutdoorAir,
+	outdoorAirSpec,
+	AirChanges/Hour,
+	,,,0.5;
+
+Schedule:Compact,
+	defaultPeopleOccupationSchedule,
+	Fraction,
+	Through: 12/31,
+	For: Alldays,
+	Until: 6:0,1.0,
+	Until: 23:0,0.5,
+	Until: 24:0,1.0;
+
+
+Schedule:Compact,
+	defaultPeopleActivitySchedule,
+	Any Number,
+	Through: 12/31,
+	For: Alldays,
+	Until: 6:0,80.0,
+	Until: 23:0,150.0,
+	Until: 24:0,80.0;
+
+
+Schedule:Compact,
+	defaultElectricEquipmentSchedule,
+	Fraction,
+	Through: 12/31,
+	For: Alldays,
+	Until: 6:0,0.0,
+	Until: 23:0,1.0,
+	Until: 24:0,0.0;
+
+
+Schedule:Compact,
+	defaultLightSchedule,
+	Fraction,
+	Through: 12/31,
+	For: Alldays,
+	Until: 6:0,0.0,
+	Until: 23:0,1.0,
+	Until: 24:0,0.0;
+
+Construction,
+	wall facade,
+	wood 20mm,		! outside layer
+	air gap,
+	insulation parametric,
+	Masonry 24,
+	Plaster In;		! inner layer
+
+
+Material,
+	wood 20mm,
+	MediumSmooth,		! Roughness
+	0.02,		! Thickness {m}
+	0.15,		! Conductivity {W/m-K}
+	608.0,		! Density {kg/m3}
+	1630.0,		! Specific Heat {J/kg-K}
+	,
+	,
+	;
+
+
+Material:AirGap,
+	air gap,
+	0.15;
+
+
+Material,
+	insulation parametric,
+	MediumRough,		! Roughness
+	0.3,		! Thickness {m}
+	0.038,		! Conductivity {W/m-K}
+	55.0,		! Density {kg/m3}
+	1400.0,		! Specific Heat {J/kg-K}
+	,
+	,
+	;
+
+
+Material,
+	Masonry 24,
+	MediumRough,		! Roughness
+	0.24,		! Thickness {m}
+	1.1,		! Conductivity {W/m-K}
+	1800.0,		! Density {kg/m3}
+	790.0,		! Specific Heat {J/kg-K}
+	,
+	,
+	;
+
+
+Material,
+	Plaster In,
+	MediumRough,		! Roughness
+	0.0050,		! Thickness {m}
+	0.8,		! Conductivity {W/m-K}
+	1500.0,		! Density {kg/m3}
+	900.0,		! Specific Heat {J/kg-K}
+	,
+	,
+	;
+
+
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+!- end of ANAR+ generated input definition file for EnergyPlus

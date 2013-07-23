@@ -1,0 +1,78 @@
+Program Version,EnergyPlus-Windows-64 8.0.0.008, YMD=2013.07.10 15:54,IDD_Version 8.0.0.008
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_2049894373", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_494578190", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_1613925440", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_378924823", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_1300486806", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_193189276", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_2084371115", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_124596294", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_293357433", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="FACE_ROOF_2096818063", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="FACE_ROOF_1014537571", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="FACE_ROOF_312798617", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="FACE_ROOF_166388063", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="FACE_ROOF_460466447", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="FACE_ROOF_1675994588", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="FACE_ROOF_2045526464", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="FACE_ROOF_97575625", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="FACE_ROOF_1423506714", in Zone="L0_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_219627569", in Zone="L1_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_206339600", in Zone="L2_ZONE1".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[160.0], should be near 0, Surface="FACE_ROOF_1418911234", in Zone="L2_ZONE1".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[122.5], should be near 0, Surface="FACE_ROOF_1982693550", in Zone="L2_ZONE1".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[180.0], should be near 0, Surface="FACE_ROOF_626744351", in Zone="L2_ZONE1".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Floor is upside down! Tilt angle=[0.0], should be near 180, Surface="FACE_FLOOR_280648321", in Zone="L2_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[160.0], should be near 0, Surface="FACE_ROOF_27273278", in Zone="L2_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** GetVertices: Roof/Ceiling is upside down! Tilt angle=[122.5], should be near 0, Surface="FACE_ROOF_967966535", in Zone="L2_ZONE2".
+   **   ~~~   ** Automatic fix is attempted.
+   ** Warning ** CheckUsedConstructions: There are 240 nominally unused constructions in input.
+   **   ~~~   ** For explicit details on each unused construction, use Output:Diagnostics,DisplayExtraWarnings;
+   ************* Testing Individual Branch Integrity
+   ************* All Branches passed integrity testing
+   ************* Testing Individual Supply Air Path Integrity
+   ************* All Supply Air Paths passed integrity testing
+   ************* Testing Individual Return Air Path Integrity
+   ************* All Return Air Paths passed integrity testing
+   ************* No node connection errors were found.
+   ************* Beginning Simulation
+   ** Warning ** DeterminePolygonOverlap: Too many figures [>15000]  detected in an overlap calculation. Use Output:Diagnostics,DisplayExtraWarnings; for more details.
+   ************* Simulation Error Summary *************
+   ************* There are 57 unused schedules in input.
+   ************* Use Output:Diagnostics,DisplayUnusedSchedules; to see them.
+   *************
+   ************* ===== Final Error Summary =====
+   ************* The following error categories occurred.  Consider correcting or noting.
+   ************* Nominally Unused Constructions
+   ************* ..The nominally unused constructions warning is provided to alert you to potential conditions that can cause
+   ************* ..extra time during simulation. Each construction is calculated by the algorithm indicated in the HeatBalanceAlgorithm
+   ************* ..object. You may remove the constructions indicated (when you use the DisplayExtraWarnings option).
+   *************
+   ************* EnergyPlus Warmup Error Summary. During Warmup: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Sizing Error Summary. During Sizing: 0 Warning; 0 Severe Errors.
+   ************* EnergyPlus Completed Successfully-- 28 Warning; 0 Severe Errors; Elapsed Time=00hr 01min  1.70sec
