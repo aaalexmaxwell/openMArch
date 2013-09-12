@@ -1,15 +1,27 @@
 
 Table dataTable;
+PImage pixData;
 
 void setup(){
- size(600,365);
+ size(365,365);
  dataTable = loadTable("test.csv", "csv");
+ pixData = loadImage("pixData.png");
  noLoop();
 }
 
 void draw(){
   background(255);
+  
   displayByHr();
+  save("pixData.png");
+  
+  //image(pixData, 0, 0);
+  
+//  color c = get(0, 0);
+//  println(red(c));
+//  println(green(c));
+//  println(blue(c));
+  
 }
 
 
@@ -22,11 +34,10 @@ void displayByHr(){
         float tempCol = float(dataTable.getString(j, i));
         float temp = float(dataTable.getString(j, i));
         ///////////////////////////////////////////////////////////////
-//        tempCol = tempCol*10;
+        tempCol = tempCol*10;
 //        tempCol = (tempCol-10)*10;
-        tempCol = tempCol*(tempCol-15);
+//        tempCol = tempCol*(tempCol-15);
         int c =int(tempCol);
-        println(c);
         color c1 = color(c, 0, 0);
         if (temp <=18){
           c1 = color(0 ,0, c);
@@ -34,6 +45,10 @@ void displayByHr(){
         if (temp >18 & temp<=23){
           c1 = color(0, c, 0);
         }
+        ///////////////////////////////////////////////////////////////
+//        int c = int(tempCol);
+//        color c1 = color(c, c, c);
+        ///////////////////////////////////////////////////////////////
         set(pX,pY, c1);
         /////////////////////////////////////////////////////////////// 
         pY++;
