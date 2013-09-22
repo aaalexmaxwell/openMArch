@@ -1,0 +1,13 @@
+I can code. If you were to ask me, that is what I will tell you. But i cannot actually prove it. I don't have a certificate that proves i completed a course were i learned to code.
+
+Perhaps I could give a piece of code that I have written. But how do you know i wrote it? Can someone verify it, identify my writing style? I am not sure that I can.
+
+And how would you know that it was all my own work? What if i have used parts of someone else's code in my own? And what if the part of the code that i have taken, whilst not significant in my own, represents the majority of the other persons? My code doesn't have references of footnotes.
+
+What if we sat down and you watched my code something, from scratch? But maybe i am just regurgitating something that i have remembered? How would you know? Maybe you could come up with something for me to code and then see if i can do?
+
+That could be tricky though - . I never said i could code everything. For example, I can write a genetic algorithm, or an artificial neural network. But to be honest, I am not that good at web design, so it would be best if you didn't ask me about that.
+
+One of the programming languages i know doesn't really exist anymore. Sure, there are some survivors still clinging onto it. And you can here echoes of it in other places - familiar words, phrases. But it is basically dead. I still have the code that i wrote, but i can't show you it. Well, I mean, I can show you the code, but i can't run it, it doesn't do anything.
+
+Well, this is a bit awkward. But I can code. Honestly.
