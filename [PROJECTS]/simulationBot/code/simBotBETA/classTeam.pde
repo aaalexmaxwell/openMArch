@@ -4,7 +4,8 @@ class teamType1{
   int name;
   int numZones;   
   //String dataLoc = "C:\\Users\\plangley\\Dropbox\\WORKSHOP\\teamName\\sketchName\\sim\\test.csv";
-  String dataLoc = baseFolderLoc + teamName + "\\" + sketchName + "\\" + "sim\\test.csv";
+  //String dataLoc = baseFolderLoc + teamName + "\\" + sketchName + "\\" + "sim\\test.csv";
+  String dataLoc = "C:\\Users\\plangley\\Documents\\[PHIL]\\GitHub\\openPHD\\[PROJECTS]\\simulationBot\\code\\simBotBETA\\data\\test.csv";
   String [] testForData;
   String [] simData;
   String data [] [];
@@ -332,7 +333,7 @@ class teamType1{
 /////////////////////////////////////////////////DATA LOADING AND SORTING
     void loadSimData(){
       testForData = loadStrings (dataLoc);
-      //println(dataLoc);
+      println(dataLoc);
       if (testForData!= null){
         simData = loadStrings (dataLoc);
       }
@@ -354,8 +355,8 @@ class teamType1{
           ///based on always 5 columns before the first column containing floor data 
           ///and the spreadsheet containing 6 pieces of information about each zone
           numZones = ((xDim-1)-5)/6;
-          println("XDIM....." + xDim);
-          println("NUMZONES....." + numZones);
+          //println("XDIM....." + xDim);
+          //println("NUMZONES....." + numZones);
       
           for (int j=0; j<yDim-1; j++){ 
             String []tempX = split(simData[j+1],','); 
@@ -363,7 +364,7 @@ class teamType1{
               sortData [j] [i] = tempX[i];
             } 
           }
-          println(sortData [0] [5]);
+          //println(sortData [0] [5]);
           ///calculate the start date of the simulation
           startMonth = sortData [0] [0].substring(1,3); 
           startDay = sortData [0] [0].substring(4,6); 
