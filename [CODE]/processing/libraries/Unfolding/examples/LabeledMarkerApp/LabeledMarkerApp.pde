@@ -53,6 +53,7 @@ void mouseMoved() {
   Marker marker = map.getFirstHitMarker(mouseX, mouseY);
   if (marker != null) {
     marker.setSelected(true);
+    String test = marker.name;
   }
 }
 

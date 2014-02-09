@@ -8,7 +8,7 @@ import java.util.HashMap;
  */
 public class LabeledMarker extends SimplePointMarker {
 
-  protected String name;
+  public String name;
   protected float size = 15;
   protected int space = 10;
 
