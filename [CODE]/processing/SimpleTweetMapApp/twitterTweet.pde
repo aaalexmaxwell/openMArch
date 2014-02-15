@@ -3,8 +3,8 @@ void tweetNewImage(){
       String imLoc= savePath("");
       String imName = tCount + ".png";
       save(imName);
-      String tweetText = tCount+"...a simple tweet";
-      String tag = "#odCode";
+      String tweetText = "...a new tweet from the team! ";
+      String tag = "#studioODsimBot";
       String message = tweetText + tag;
       
       try {

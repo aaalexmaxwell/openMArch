@@ -1,12 +1,14 @@
 void getData(){
   
   tweetTable = loadTable("tweetData.csv", "header");
-        
   saveTable(tweetTable, "data/tweetData.csv");
+  
   println("newTableCreated");
  
-  tCount = tweetTable.getRowCount()+1;
-  mCount = tweetTable.getRowCount()+1;
+  tCount = tweetTable.getRowCount();
+  mCount = tweetTable.getRowCount();
+  
+  println("newTableSize" + tCount);
   
 }
 
@@ -25,23 +27,36 @@ void mapExTweets(){
     boolean tempTag2=false;
     
     for (int j = 6; j< tweetTable.getColumnCount(); j++) {
-      String tempTag = row.getString(j);
+      String tempTag = "#"+row.getString(j);
       if (tempTag.equals(keyTag0) == true){tempTag0=true;}
       if (tempTag.equals(keyTag1) == true){tempTag1=true;}
       if (tempTag.equals(keyTag2) == true){tempTag2=true;}
-        
     }
 
     de.fhpotsdam.unfolding.geo.Location tweetLocation = new de.fhpotsdam.unfolding.geo.Location(tempLat, tempLon);
-    //currentLocation = new de.fhpotsdam.unfolding.geo.Location(tempLat, tempLon);
-    
     tweetMarker = new tMarker(tweetLocation, tempUser, tempMessage, tempTime, tempMedia, tempTag0, tempTag1, tempTag2);
     tweetMarker.setId(str(i));
-    
     tweetMarkerList.add(tweetMarker);
 
   }
-
   map.addMarkers(tweetMarkerList);
-  mapPan.addMarkers(tweetMarkerList);
+  tweetMarkerList.clear();
+  
+}
+
+void getCurrentTweet(){
+  
+  
+  
+  for (Marker tweetMarker : map.getMarkers()) {  
+    //println("tCount" +tCount + "  ID " +  tweetMarker.getId() );
+    if (tweetMarker.getId().equals(str(tCount-1))==true){
+      //println("tCount" +tCount);
+      //println("ID " +  tweetMarker.getId());
+      tweetMarker.setSelected(true);
+      currentLocation = tweetMarker.getLocation();
+    }else{
+      tweetMarker.setSelected(false);
+    }
+  }
 }

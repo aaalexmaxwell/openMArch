@@ -21,17 +21,26 @@ void connectTwitter() {
   twitterStream.setOAuthConsumer(OAuthConsumerKey, OAuthConsumerSecret);
   twitterStream.setOAuthAccessToken(accessToken);
   println("stream connected");
-  ////connect twitterTweet
+//  ////connect twitterTweet
   twitterTweet.setOAuthConsumer(OAuthConsumerKey, OAuthConsumerSecret);
   twitterTweet.setOAuthAccessToken(accessToken);
-  println("tweet connected");
+//  println("tweet connected");
   twitterSearch.setOAuthConsumer(OAuthConsumerKey, OAuthConsumerSecret);
   twitterSearch.setOAuthAccessToken(accessToken);
-  println("search connected");
+//  println("search connected");
 }
 
 // Loading up the access token
 private static AccessToken loadAccessToken() {
   return new AccessToken(AccessToken, AccessTokenSecret);
 }
+
+// { site, parse token }
+String imageService[][] = { 
+  { "http://yfrog.com",    "<meta property=\"og:image\" content=\""}, 
+  {"http://twitpic.com",   "<img class=\"photo\" id=\"photo-display\" src=\""}, 
+  {"http://img.ly",        "<img alt=\"\" id=\"the-image\" src=\"" }, 
+  { "http://lockerz.com/", "<img id=\"photo\" src=\""}, 
+  {"http://instagr.am/",   "<meta property=\"og:image\" content=\""}
+};
 

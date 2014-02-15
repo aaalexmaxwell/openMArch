@@ -3,8 +3,8 @@
 void twitterSearches(){
   
   //Query query = new Query("(#climate) AND (#studioOD)");
-  //query.since("2013-12-02");
-  Query query = new Query("@studioopendata");
+  Query query = new Query("#studioOD");
+  query.since("2014-02-11");
   query.setCount(maxTweets);
   query.resultType("ALL");
   
@@ -14,7 +14,6 @@ void twitterSearches(){
   tweetTable.addColumn("Time");
   tweetTable.addColumn("Tweet");
   tweetTable.addColumn("Media");
-  tweetTable.addColumn("Tags");
   
   try {
 
@@ -50,11 +49,19 @@ void twitterSearches(){
       println("@" + status.getUser().getScreenName() + ":" + status.getText());
       
       /////get hashtags from tweets     
+//      for (HashtagEntity hashtags : status.getHashtagEntities()) {
+//        hTag = hTag +"#" + hashtags.getText() + ", ";
+//        //println(hTag);
+//      }
+//      newRow.setString("Tags",hTag);
+
+      int tagCount=0;
       for (HashtagEntity hashtags : status.getHashtagEntities()) {
-        hTag = hTag +"#" + hashtags.getText() + ", ";
+        hTag = hashtags.getText();
+        newRow.setString("Tags"+tagCount,hTag);
+        tagCount++;
         //println(hTag);
       }
-      newRow.setString("Tags",hTag);
       
       /////get images from tweets
       String imgUrl = null;
@@ -65,7 +72,7 @@ void twitterSearches(){
         //println(imgUrl);           
         //println(ind);  
         byte[] imgBytes = loadBytes(imgUrl);
-        saveBytes("data/image" + ind + ".jpg", imgBytes);
+        saveBytes("data/" + ind + ".jpg", imgBytes);
         newRow.setInt("Media",ind);
       }
 
@@ -105,11 +112,13 @@ void twitterSearches(){
           println("@" + status.getUser().getScreenName() + ":" + status.getText());
           
           /////get hashtags from tweets     
+          int tagCount=0;
           for (HashtagEntity hashtags : status.getHashtagEntities()) {
-            hTag = hTag +"#" + hashtags.getText() + ", ";
+            hTag = hashtags.getText();
+            newRow.setString("Tags"+tagCount,hTag);
+            tagCount++;
             //println(hTag);
           }
-          newRow.setString("Tags",hTag);
            
           /////get images from tweets
           String imgUrl = null;
@@ -120,7 +129,7 @@ void twitterSearches(){
             //println(imgUrl);           
             //println(ind);  
             byte[] imgBytes = loadBytes(imgUrl);
-            saveBytes("data/image" + ind + ".jpg", imgBytes);
+            saveBytes("data/" + ind + ".jpg", imgBytes);
             newRow.setInt("Media",ind);
           }
     
@@ -136,6 +145,7 @@ void twitterSearches(){
   
   saveTable(tweetTable, "data/tweetData.csv");
   println("csv exported....");
+  background(0,255,0);
  
 }
 

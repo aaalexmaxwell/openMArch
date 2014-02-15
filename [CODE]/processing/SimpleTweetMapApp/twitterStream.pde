@@ -1,12 +1,12 @@
 /////////STREAM TWEETS
-String[] keywords = {"#lfc"};
+String[] keywords = {"#studioOD"};
 //double[][] locations = {{51.4, -0.13}, {51.6, -0.11}};
 String imgUrl = null;
 String imgPage = null;
 
-String keyTag0 = "0";
-String keyTag1 = "1";
-String keyTag2 = "2";
+String keyTag0 = "#work";
+String keyTag1 = "#rest";
+String keyTag2 = "#play";
 
 boolean tag0 = false;
 boolean tag1 = false;
@@ -24,19 +24,22 @@ StatusListener listener = new StatusListener() {
   
   public void onStatus(Status status) {
     
+       tCount++;
+    
 //////GET GEO DATA AND ADD MAP MARKER//////////////////////////////////////////////////////////
 //////GET GEO DATA AND ADD MAP MARKER//////////////////////////////////////////////////////////
+      float tweetLat = 53.3762906; 
+      float tweetLong = -1.4737242;
+      
+      if (status.getGeoLocation() != null){
+        println("//////FOUND GEO-LOCATION/////");
+        tweetLat = (float)status.getGeoLocation().getLatitude();
+        tweetLong = (float)status.getGeoLocation().getLongitude();
+//      } else {
+        //float tweetLat = random(53.3724,53.3897);
+        //float tweetLong = random(-1.4850,-1.4540);
+      }
 
-//      if (status.getGeoLocation() != null){
-//       double tweetLat = status.getGeoLocation().getLatitude();
-//       double tweetLong = status.getGeoLocation().getLongitude();
-//       de.fhpotsdam.unfolding.geo.Location tweetLocation = new de.fhpotsdam.unfolding.geo.Location(tweetLat, tweetLong);
-//       tweetMarker = new SimplePointMarker(tweetLocation);
-//       println("tweet " + tCount);
-//      }
-
-      float ranLat = random(53.37,53.39);
-      float rnLon = random(-1.49,-1.45);
       String userName = "@" + status.getUser().getScreenName();
       String userMessage = status.getText();
       String userTime = "" + status.getCreatedAt();
@@ -46,38 +49,24 @@ StatusListener listener = new StatusListener() {
       }
       
       for (HashtagEntity hashtags : status.getHashtagEntities()) {
-        if (hashtags.getText()== keyTag0){tag0=true;}
-        if (hashtags.getText()== keyTag1){tag1=true;}
-        if (hashtags.getText()== keyTag2){tag2=true;}
+        String tempTag = "#" + hashtags.getText();
+        if (tempTag.equals(keyTag0)== true){tag0=true;}
+        if (tempTag.equals(keyTag1)== true){tag1=true;}
+        if (tempTag.equals(keyTag2)== true){tag2=true;}
       }
       
-      de.fhpotsdam.unfolding.geo.Location tweetLocation = new de.fhpotsdam.unfolding.geo.Location(ranLat,rnLon );
+      de.fhpotsdam.unfolding.geo.Location tweetLocation = new de.fhpotsdam.unfolding.geo.Location(tweetLat,tweetLong );
       tweetMarker = new tMarker(tweetLocation, userName, userMessage, userTime, userMedia, tag0, tag1, tag2);
-      tweetMarker.setId(str(tCount));
+      println(tag0, tag1, tag2);
+      tweetMarker.setId(str(tCount-1));
+      //println("newTweetID " + tweetMarker.getId());
       tweetMarkerList.add(tweetMarker);  
-      
-//////IT THE MAP IS NOT BEING DRAWN, ADD THE MARKER TO THE MAP/////////////////////////////////
-//////IT THE MAP IS NOT BEING DRAWN, ADD THE MARKER TO THE MAP/////////////////////////////////
-
-//////IT THE MAP IS NOT BEING DRAWN, ADD THE MARKER TO THE MAP/////////////////////////////////
-//////IT THE MAP IS NOT BEING DRAWN, ADD THE MARKER TO THE MAP/////////////////////////////////
-      if(hold!=true){
-        currentLocation = tweetLocation;
-        map.addMarkers(tweetMarkerList);
-        //mapPan.addMarkers(tweetMarkerList);
-        sendTweet=true;
-        println("marker " + mCount);
-        mCount++;
-      }     
-//////GET GEO DATA AND ADD MAP MARKER//////////////////////////////////////////////////////////
-//////GET GEO DATA AND ADD MAP MARKER//////////////////////////////////////////////////////////
-      
+            
 //////EXTRACT DATA AND ADD TO TABLE////////////////////////////////////////////////////////////
 //////EXTRACT DATA AND ADD TO TABLE////////////////////////////////////////////////////////////
 
-      String Lat = str(ranLat);
-      String Long = str(rnLon);
-      
+      String Lat = str(tweetLat);
+      String Long = str(tweetLong);
       String ID = "@" + status.getUser().getScreenName();
       
       if (status.getGeoLocation() != null){
@@ -105,7 +94,6 @@ StatusListener listener = new StatusListener() {
         newRow.setString("Tag"+tagCount,hTag);
         tagCount++;
       }    
-
       
       /////get images from tweets
       String imgUrl = null;
@@ -118,12 +106,20 @@ StatusListener listener = new StatusListener() {
         newRow.setInt("Media",tCount);
       }
       
-      println("tweet " + tCount);
-      tCount++;
+      //println("newTweet " + tCount);
       saveTable(tweetTable, "data/tweetData.csv");
-     
-//////EXTRACT DATA AND ADD TO TABLE////////////////////////////////////////////////////////////
-//////EXTRACT DATA AND ADD TO TABLE////////////////////////////////////////////////////////////   
+
+//////IF THE MAP IS NOT BEING DRAWN, ADD THE MARKER TO THE MAP/////////////////////////////////
+//////IF THE MAP IS NOT BEING DRAWN, ADD THE MARKER TO THE MAP/////////////////////////////////
+      if(hold!=true){ 
+        
+        map.addMarkers(tweetMarkerList);
+        tweetMarkerList.clear();
+        sendTweet=true;
+        //println("newMarker " + mCount);
+        mCount++;
+      }
+      
   }
 
   public void onStallWarning(StallWarning stallWarning){}
